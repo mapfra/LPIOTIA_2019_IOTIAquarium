@@ -8,5 +8,7 @@
 
 module fr.iotiaquarium{
 	requires com.dieunelson.labyrinth.JBrain;
+	requires junit;
+	requires org.junit.jupiter.api;
 	
 }
