@@ -19,10 +19,12 @@ public class TestIntegration {
 
 			@Override
 			public Object execute(ArrayList<Object> arg0) {
-				// TODO Auto-generated method stub
+				
 				int T=2;
 				int T1=2;
-				return T+T1;
+				Object result = ((Integer)T)+((Integer)T1);
+				
+				return result;
 			}
 			
 		};
@@ -30,16 +32,19 @@ public class TestIntegration {
 		Neuron<Object> n1 = new Neuron<Object>(task1);
 		NeuronMonitor<Object> monitor = new NeuronMonitor<Object>(n1);
 		
-		int result = (int)monitor.getResult();
 		
 		n1.start();
 		
+		
+		Object result = monitor.getResult();
+		
+		
+		
 		assertEquals(result, 4);
-		
-		
-		
-		
 		
 
 	}
+	
+	
+	
 }
