@@ -1,1 +1,24 @@
 /bin/
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+
+##############################
+## Eclipse
+##############################
+.settings/
+bin/
+tmp/
+.metadata
+.classpath
+.project
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+.factorypath
