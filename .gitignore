@@ -1,2 +1,24 @@
 
+# Compiled class file
+codes_sources/brain/*.class
+
+# Log file
+codes_sources/brain/*.log
+
+
+##############################
+## Eclipse
+##############################
+codes_sources/brain/.settings/
+codes_sources/brain/bin/
+codes_sources/brain/tmp/
+codes_sources/brain/.metadata
 codes_sources/brain/.classpath
+codes_sources/brain/.project
+codes_sources/brain/*.tmp
+codes_sources/brain/*.bak
+codes_sources/brain/*.swp
+codes_sources/brain/*~.nib
+codes_sources/brain/local.properties
+codes_sources/brain/.loadpath
+codes_sources/brain/.factorypath
