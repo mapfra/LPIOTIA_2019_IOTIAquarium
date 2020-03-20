@@ -1,8 +1,8 @@
 package fr.iotiaquarium.component;
 
-public class Feerder extends TriggerComponent{
+public class Feeder extends TriggerComponent{
 
-	public Feerder(Object status) {
+	public Feeder(Object status) {
 		super(status);
 		// TODO Auto-generated constructor stub
 	}
