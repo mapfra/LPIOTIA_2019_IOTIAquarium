@@ -25,25 +25,33 @@ public class ListenerNeuron extends Neuron<Object>{
 	
 	@Override
 	public void run() {
+		this.running = true;
 		
 		//	ecouter la socket
 		try {
+			System.out.println("RUNNING");
 			while(running) {
+				System.out.println("WAIT");
 				this.client = socket.accept();
-				
+				System.out.println("ACCEPT");
 				InputStream input = client.getInputStream();
 				InputStreamReader inputReader = new InputStreamReader(input);
 				BufferedReader buffer = new BufferedReader(inputReader);
 				String data;
 				
+
+				System.out.println("WAIT DATA");
 				while((data=buffer.readLine())!=null) {
+					
+					System.out.println("RECEIVE :"+data);
+					
 					for (int i = 0; i < this.countOutputSynapses; i++) {
 						this.getOutputSynapse(i).setValue(data);
 					}
 				}
 			}
 			
-			this.client.close();
+			System.out.println("SERVER CLOSING");
 			this.socket.close();
 			
 			
@@ -53,11 +61,24 @@ public class ListenerNeuron extends Neuron<Object>{
 		
 	}
 	
+	public void close() {
+		this.running = false;
+
+	}
+	
 	
 	@Override
 	public void addOutputSynapse(Synapse<Object> synapse) {
 		this.countOutputSynapses++;
 		super.addOutputSynapse(synapse);
+	}
+
+	public ServerSocket getSocket() {
+		return socket;
+	}
+
+	public void setSocket(ServerSocket socket) {
+		this.socket = socket;
 	}
 	
 	
