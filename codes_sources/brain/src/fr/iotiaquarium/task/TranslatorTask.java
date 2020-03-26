@@ -46,14 +46,14 @@ public class TranslatorTask implements NeuronTask<Object>{
 					splitArray2 = str.split("=");		
 					try {					
 						Class<?> componentclass = Class.forName("fr.iotiaquarium.component."+splitArray2[0]);
-						Constructor<?> constructor = componentclass.getConstructor(Double.class);
-						Object instance = constructor.newInstance(Double.valueOf(splitArray2[0]));
+						Constructor<?> constructor = componentclass.getConstructor(Object.class);
+						Object instance = constructor.newInstance(Double.valueOf(splitArray2[1]));
 						output.add(instance);
 						
 						
 						
 					}catch( ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e ) {
-					
+						System.err.println("ClassNotFound "+ splitArray2[0]);
 						return null;
 					}
 					
@@ -63,10 +63,8 @@ public class TranslatorTask implements NeuronTask<Object>{
 
 
 			}
-
-			return null;
 		}
-
+		System.err.println("Input Empty");
 		return null;
 
 	}
