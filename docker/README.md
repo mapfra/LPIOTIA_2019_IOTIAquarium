@@ -55,9 +55,26 @@ touch data/mosquitto.conf data/pwfile
 
 vi data/mosquitto.conf
 ```
+## Openssl
+
+Il faut maintenant créer les certificats :
+``` shell
+openssl genrsa -aes256 -out ca.key 2048
+
+openssl req -new -x509 -days 3600 -key ca.key -out ca.crt 
+```
+Attention a être cohérent dans les informations renseignées à cette étape, il faut que le Common Name soit différent que pour les etapes suivantes.
+``` shell
+openssl genrsa -out server.key 2048
+
+openssl req -new -key server.key -out server.req
+
+openssl x509 -req -in server.req -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 1800 
+```
 Copier le contenu du fichier data/mosquito.conf situé dans ce dépôt git, soit :
 
 ``` shell
+port 1883
 log_dest stdout
 allow_anonymous false
 password_file /etc/mosquitto/pwfile
@@ -103,23 +120,6 @@ docker-compose exec mosquitto sh
 >>> cat pwfile
 nomUtilisateur:7749&ksjfnvdwjo==
 >>> exit
-```
-
-## Openssl
-
-Il faut maintenant créer les certificats :
-``` shell
-openssl genrsa -aes256 -out ca.key 2048
-
-openssl req -new -x509 -days 3600 -key ca.key -out ca.crt 
-```
-Attention a être cohérent dans les informations renseignées à cette étape, il faut que le Common Name soit différent que pour les etapes suivantes.
-``` shell
-openssl genrsa -out server.key 2048
-
-openssl req -new -key server.key -out server.req
-
-openssl x509 -req -in server.req -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 1800 
 ```
 Maintenant il ne reste plus qu’à redémarrer le container pour prendre en compte les modifications.
 ``` shell
