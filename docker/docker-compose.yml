@@ -1,10 +1,18 @@
 mosquitto:
-  image: lpiotia/mqtt
+  image: vimagick/mosquitto
   ports:
-    - "1883:1883"
     - "8883:8883"
   volumes:
     - ./data/mosquitto.conf:/etc/mosquitto/mosquitto.conf
     - ./data/pwfile:/etc/mosquitto/pwfile
     - ./data:/var/lib/mosquitto
+  restart: always
+
+influxdb:
+  image: influxdb:1.7
+  container_name: influxdb
+  ports:
+    - 8086:8086
+  volumes:
+    - ./data/influxdb:/var/lib/influxdb
   restart: always
