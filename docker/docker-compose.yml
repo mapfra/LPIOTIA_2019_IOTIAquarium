@@ -1,5 +1,6 @@
 mosquitto:
-  image: vimagick/mosquitto
+  image: lpiotia/mosquitto:latest
+  container_name: mqtt
   ports:
     - "1883:1883"  
     - "8883:8883"
