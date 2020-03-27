@@ -40,7 +40,7 @@ docker-compose --version
 ## Problématique et solution
 
 Dans une logique de travail à distance, utiliser Docker permet de simplifier l'installation et la configuration de service comme un broker MQTT. En quelques lignes de commandes on peut lancer un serveur mosquito prés à l'emploi. Le problème est la sécurité, nous pourrions créer notre propre image Docker contenant les certificats et le clés privés mais comme cette image sera rendue publique sur DockerHub ce n'est pas pertinent, de plus l'utilisation de plusieurs conteneurs (mosquito et influxDB) complique la tâche de déploiement et de configuration que nous voulons garder simple.
-La solution est Docker compose qui est un outil permettant de définir et d'exécuter de multiples conteneurs. Avec Compose, nous pouvons utiliser un fichier YAML pour configurer les applications et ensuite, avec une seule commande, créer et démarrer tous les services. Nous allons aussi l'utiliser pour la persistance des données, les certificats, clés et fichiers de configuration vont être stockés sur la machine hôte et synchroniser avec le conteneur à chacun redémarrage.
+La solution est Docker-compose qui est un outil permettant de définir et d'exécuter de multiples conteneurs. Avec Compose, nous pouvons utiliser un fichier YAML pour configurer les applications et ensuite, avec une seule commande, créer et démarrer tous les services. Nous allons aussi l'utiliser pour la persistance des données, les certificats, clés et fichiers de configuration vont être stockés sur la machine hôte et synchroniser avec le conteneur à chacun redémarrage, à noter que la synchronisation va dans les deux sens hôte\<\-\-\>container. Nous utilisons cette fonctionalité a notre avantage, exemple 1 : Mosquitto gère lui-même son fichier de mot de passe mais avec la synchronisation nous pouvons consulter l'état de ce fichier dans le repertoire data de l'hôte. Exemple 2 : tout les modifications du fichier mosquitto.conf sera repercuté sur le container aprés son redémarrage. Attention les changements du fichier docker-compose.yml nécessite l'extinction des containers concernés et l'utilisation de la commande *docker-compose up -d* un redémarrage avec *docker-compose restart* ne suffira pas.
 Notre image Docker custom d'un mosquitto (sans certificat) sera publiée sur DockerHub 
 [https://hub.docker.com/repository/docker/lpiotia/mqtt](https://hub.docker.com/repository/docker/lpiotia/mqtt)
 ___
@@ -71,6 +71,10 @@ openssl req -new -key server.key -out server.req
 
 openssl x509 -req -in server.req -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 1800 
 ```
+## Point securité pour mosquitto
+Le port 1883 sera fermé vers l'extérieur pour permettre une identification par mot de passe sur le réseau local. L'identification par certificat *et* mot de passe sera réservé au port 8883 ouvert vers l'extérieur. À noter qu'il est possible d'utiliser la technologie des websocket sur le port 8080 pour permettre la communication entre une api Web et mosquitto. L'utilisation du protocole https nous fera préférer l'utilisation de let's encrypt plutôt qu'un certificat auto-signé.
+
+##Continuer la configuration du broker
 Copier le contenu du fichier data/mosquito.conf situé dans ce dépôt git, soit :
 
 ``` shell
