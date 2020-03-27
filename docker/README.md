@@ -106,7 +106,7 @@ Copier le contenu du fichier docker-compose.yml situé dans ce dépôt git, soit
 
 ``` shell
 mosquitto:
-  image: lpiotia/mqtt
+  image: lpiotia/mosquitto
   ports:
     - "1883:1883"
     - "8883:8883"
