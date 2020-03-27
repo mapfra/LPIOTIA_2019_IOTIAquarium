@@ -47,7 +47,7 @@ ___
 
 ## Configuration du broker MQTT
 
-Manipulation sur la machine hôte, ce placer dans un répertoire adéquat, par exemple /home/docker/ :
+Manipulation sur la machine hôte, se placer dans un répertoire adéquat, par exemple /home/docker/ :
 ``` shell
 mkdir -p data
 
@@ -104,11 +104,10 @@ docker-compose exec mosquitto sh
 nomUtilisateur:7749&ksjfnvdwjo==
 >>> exit
 ```
-Copier la ligne aprés le **cat pwfile** dans le fichier vide pwfile que nous avons créé précedement (c'est pour assurer la persistance des données en cas de redémarrage ou perte du container). A noter que la commande docker-compose exec nous permet d'intervenir dans le container.
 
 ## Openssl
 
-Il faut maintenant créer les certificatss :
+Il faut maintenant créer les certificats :
 ``` shell
 openssl genrsa -aes256 -out ca.key 2048
 
