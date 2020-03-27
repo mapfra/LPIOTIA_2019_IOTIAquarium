@@ -47,7 +47,7 @@ ___
 
 ## Configuration du broker MQTT
 
-Manipulation sur la machine hôte, se placer dans un répertoire adéquat, par exemple /home/docker/ :
+Manipulation sur la machine hôte, se placer dans un répertoire adéquat, par exemple /home/<username>/docker/ :
 ``` shell
 mkdir -p data
 
