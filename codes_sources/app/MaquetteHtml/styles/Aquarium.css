@@ -60,7 +60,7 @@ button:hover{
 	background-color: rgba(0,136,169,0.5);
 }
 
-
+/*Temperature*/
 .container { width: 300px; margin: 10px auto 0; }
 .de .den, .de .dene, .de .denem, .de .deneme { position: absolute;  left: 50%; top: 50%; }
 .de {
@@ -124,3 +124,33 @@ button:hover{
 }
 .deneme span { font-size: 30px; font-weight: 200; background-color: transparent; }
 .deneme strong { position: absolute; right: -10px; top: 25px; font-size: 34px;background-color: transparent; }
+
+/*niveau eau*/
+
+div.round{
+    margin: 50px;
+    width : 200px;
+    height: 200px;
+    position: relative;
+    /*border: 1px solid #fff;*/
+}
+div.round input{
+    position: absolute;
+    top: 60px;
+    left: 50px;
+    font-size: 60px;
+    text-align: center;
+    width: 100px;
+    border: none;
+    background:none;
+    color:#7bc9e0;
+    z-index: 1;
+    
+    
+}
+
+
+div.round canvas{
+    position:absolute;
+    top:0; left:0; right:0; bottom:0;
+}
