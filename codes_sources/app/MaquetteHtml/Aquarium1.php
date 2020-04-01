@@ -12,8 +12,9 @@
             <li><a href="#">Pompe</a></li>
         </ul>
     </nav>
-    <a class="setg" href="#"><button>Setting</button></a>
+    <a class="setg" href="setting.php"><button>Setting</button></a>
 </div>
+<img class="picture" src="./image/poisson.webp" alt="poisson">
 
 
 <?php 
