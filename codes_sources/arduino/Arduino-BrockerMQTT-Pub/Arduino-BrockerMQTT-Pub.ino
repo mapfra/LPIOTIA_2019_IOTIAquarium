@@ -7,13 +7,14 @@ void myDisconnectedCb();
 void myConnectedCb();
 
 #define CLIENT_ID "Arduino_Client"
-
+//ip
+#define IP_ADRR ""
 // create MQTT object
-MQTT myMqtt(CLIENT_ID, "192.168.1.3", 1883);
+MQTT myMqtt(CLIENT_ID, IP_ADRR, 1883);
 
-//
-char* ssid     = "Bbox-A281C6D8";
-char* password = "D251DED17FAFA3FF36463AD44D363D";
+//WIFI
+char* ssid     = "";
+char* password = "";
 
 
 //
