@@ -14,9 +14,9 @@ void myConnectedCb();
 // create MQTT
 MQTT myMqtt(CLIENT_ID, "192.168.1.3", 1883);
 
-
- char* ssid     = "Bbox-A281C6D8";
- char* password = "D251DED17FAFA3FF36463AD44D363D";
+// WIFI
+ char* ssid     = "";
+ char* password = ";
 
 
 //
