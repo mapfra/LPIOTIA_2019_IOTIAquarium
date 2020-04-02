@@ -1,6 +1,6 @@
-int DIN_pin = 8 ;
-int CS_pin = 9 ;
-int CLK_pin = 10 ;
+#define DIN_pin D5 
+#define CS_pin D3 
+#define CLK_pin D1 
 
 int A[8] = {0x18, 0x24, 0x42, 0x42, 0x7E, 0x42, 0x42, 0x42} ;
 int E[8] = {0x00, 0x7E, 0x40, 0x40, 0x7E, 0x40, 0x40, 0x7E} ;
@@ -36,7 +36,7 @@ void Init_MAX7219(void) {
 }
 
 void clear_matrix(void) {
-  const int clean[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00} ;
+  int clean[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00} ;
   write_matrix(clean) ;
 }
 
@@ -70,9 +70,9 @@ void setup() {
 void loop() { 
 
   write_matrix(A) ;
-  delay(1000) ;
+  delay(10000) ;
   write_matrix(E) ;
-  delay(1000) ;
+  delay(10000) ;
   
    
 }

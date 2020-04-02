@@ -1,21 +1,26 @@
+#include <MQTT.h>
 
-#define SensorPin A0            //pH meter Analog output to Arduino Analog Input 0
-#define Offset 0.00            //deviation compensate
+
+#define PHSensorPin A0 
+#define WaterLevelSensorPin A2   
+#define LightPin A4        
+#define Offset 0.00           
 #define LED 13
 #define samplingInterval 20
-#define printInterval 800
-#define ArrayLenth  40    //times of collection
-int pHArray[ArrayLenth];   //Store the average value of the sensor feedback
+#define MotorDuration 10000
+#define printInterval 30000 //Intervalle entre chaque envoi
+#define ArrayLenth  40    
+int pHArray[ArrayLenth];   
 int pHArrayIndex=0;
 
-////sonde Temp
-//#include <OneWire.h>
-//#include <DallasTemperature.h>
-//#include <DS1881.h>
-//                     
-//#define WATER_TEMP_PIN A1 
-//OneWire oneWire(WATER_TEMP_PIN); 
-//DallasTemperature sensors(&oneWire);
+//sonde Temp
+#include <OneWire.h>
+#include <DallasTemperature.h>
+#include <DS1881.h>
+                     
+#define WATER_TEMP_PIN A1 
+OneWire oneWire(WATER_TEMP_PIN); 
+DallasTemperature sensors(&oneWire);
 
 //moteur
 int GND=5; //Connecté à ardouino pin GND
@@ -33,11 +38,11 @@ void setup(void)
   digitalWrite(IN1,LOW);
   digitalWrite(IN2,LOW);
   analogWrite(ENA,0);
-
+   MQTT myMqtt()
   //sonde ph
   pinMode(LED,OUTPUT);
   Serial.begin(9600);
-  Serial.println("pH meter experiment!");    //Test the serial monitor
+  Serial.println("pH meter experiment!");    
 
   //niveau d'eau
   Serial.begin(9600);  // Communication started with 9600 baud
@@ -51,38 +56,37 @@ void loop(void)
 {
   
   //capteur niveau d'eau
-  int sensor=analogRead(A1); // Incoming analog signal read and appointed sensor
-  
+  int WaterLevelsensor=analogRead(WaterLevelSensorPin); 
+  int LightSensor = analogRead(LightPin); 
   static unsigned long samplingTime = millis();
   static unsigned long printTime = millis();
   static float pHValue,voltage;
   if(millis()-samplingTime > samplingInterval)
   {
     
-      pHArray[pHArrayIndex++]=analogRead(SensorPin);
+      pHArray[pHArrayIndex++]=analogRead(PHSensorPin);
       if(pHArrayIndex==ArrayLenth)pHArrayIndex=0;
       voltage = avergearray(pHArray, ArrayLenth)*5.0/1024;
       pHValue = 3.5*voltage+Offset;
       samplingTime=millis();
   }
-  if(millis() - printTime > printInterval)   //Every 800 milliseconds, print a numerical, convert the state of the LED indicator
+  if(millis() - printTime > printInterval)   //Envoi des données en fonction de l'interval donnée plus haut
   {
-        Serial.print("Voltage:");
         Serial.print(voltage,2);
-        Serial.print("    pH value: ");
         Serial.println(pHValue,2);
         Serial.println(sensor);   //valeur capteur niveau de l'eau
         digitalWrite(LED,digitalRead(LED)^1);
         printTime=millis();
-//         // On récupère la température de la sonde
-//        sensors.requestTemperatures();
-//        double dTempWater = sensors.getTempCByIndex(0);
-//      
-//        // On imprime la température
-//        Serial.print("Température de l'eau: ");
-//        Serial.print(dTempWater);
-//        Serial.println("°C");
-        
+         // On récupère la température de la sonde
+        sensors.requestTemperatures();
+        double dTempWater = sensors.getTempCByIndex(0);
+
+        // On imprime la température
+        Serial.print("Température de l'eau: ");
+        Serial.print(dTempWater);
+        Serial.println("°C");
+        //Envoi des informations dans l'ordre : PH - Niveau d'eau - Température de l'eau
+        char* stringSend = "PHSensor="+pHValue + ";WaterLevelSensor=" + WaterLevelsensor + ";TemperatureSensor=" + dTempWater + ";LightSensor=" + LightSensor;
         //ouverture du volet
         //sens1
         analogWrite(ENA,0); //vitesse
@@ -91,7 +95,8 @@ void loop(void)
         analogWrite(ENA,255);
         delay(60);
         analogWrite(ENA,35);
-        delay(10000);
+        //Temps de fonctionnement du moteur
+        delay(MotorDuration);
         //fermeture du volet
         //arret du moteur avant inversement des sens
         analogWrite(ENA,0);
