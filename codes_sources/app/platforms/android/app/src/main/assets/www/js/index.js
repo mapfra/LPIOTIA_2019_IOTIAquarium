@@ -27,11 +27,11 @@ var app = {
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
-        //this.receivedEvent('deviceready');
-
-        $.get( "http://192.168.43.123/siteweb/", function( data ) {
+        this.receivedEvent('deviceready');
+        //function qui récupère l'URL
+        /*$.get( "http://192.168.43.123/siteweb/", function( data ) {
             $( ".app" ).html( data );
-        });
+        });*/
     },
 
     // Update DOM on a Received Event
