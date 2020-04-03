@@ -1,3 +1,9 @@
+<?php
+
+ header("Access-Control-Allow-Origin: *");
+include_once 'commun/config.php';
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +15,7 @@
 	<header>
 		<h1 class=test>Mon Acquirum</h1>
 	<div>
-		<a class="home" style="margin-left:10px; margin-top:10px;" href="index.php"><button>Home</button></a>
+		<a class="home" style="margin-left:10px; margin-top:10px;" href="<?php print WEBSITE_ROOT; ?>/index.php"><button>Home</button></a>
 	</div>
 	</header>
 	
