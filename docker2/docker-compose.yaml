@@ -1,0 +1,32 @@
+# Important version de docker-compose à utiliser
+version: "3"
+
+services:
+    influxdb:
+        container_name: influxdb
+        image: influxdb:1.7.10-alpine
+        volumes:
+            - ./influxdb/:/etc/influxdb/
+            - influxdb-lib:/var/lib/influxdb
+        ports:
+            - 8086:8086
+        restart: always
+
+    mosquitto:
+        container_name: mosquitto
+        image: lpiotia/mosquitto:latest
+        volumes:
+            - ./data/mosquitto.conf:/etc/mosquitto/mosquitto.conf
+            - ./data/pwfile:/etc/mosquitto/pwfile
+            - ./data:/var/lib/mosquitto
+        ports:
+            - 1883:1883
+            - 8883:8883
+        restart: always
+
+volumes:
+# avec la commande suivante on indique que c'est docker-compose qui
+# doit créer ce volume et le gérer, nous n'intervenons pas dessus
+# car il doit contenir une sauvegarde de la base de données sur l'hôte
+  influxdb-lib:
+    external: false
