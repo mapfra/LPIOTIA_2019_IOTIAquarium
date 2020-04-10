@@ -7,10 +7,13 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <script type="text/javascript" src="../js/jquery.js"></script>
+
     <title>IOTIAQUARIUM</title>
 </head>
-<body>
-<div class="app index-home">
+
+<body >
+<div class="app index-home" >
 
     <header>
         <div>
@@ -19,49 +22,20 @@
         </div>
     </header>
 
-    <form class="aquarium-form">
-        <p class="message hide">Il n'y a rien ici !</p>
+    <div id="aquarium_parent" class="app index-home">
+    </div>
 
-        <a href="aquarium.html?aquarium=1">
-            <section class="aquarium bg-blue" >
-                <h2 class="aquarium-name">Name</h2>
-                <table class="aquarium-details">
-                    <tr>
-                        <td class="aquarium-details-item">Status</td>
-                        <td class="aquarium-details-item">Niveau eau</td>
-                        <td class="aquarium-details-item">Temperature</td>
-                        <td class="aquarium-details-item">Lumiere</td>
-                    </tr>
-                </table>
-            </section>
-        </a>
-
-        <a href="aquarium.html?aquarium=2">
-            <section class="aquarium bg-blue" >
-                <h2 class="aquarium-name">Name</h2>
-                <table class="aquarium-details">
-                    <tr>
-                        <td class="aquarium-details-item">Status</td>
-                        <td class="aquarium-details-item">Niveau eau</td>
-                        <td class="aquarium-details-item">Temperature</td>
-                        <td class="aquarium-details-item">Lumiere</td>
-                    </tr>
-                </table>
-            </section>
-        </a>
-
-    </form>
-
-    <form>
-        <div class="btn-user">
-            <button class="btn bg-blue" >Ajouter</button>
+        <div class="btn-user" >
+            <button class="btn bg-blue" id="aquarium_add">Ajouter</button>
             <button class="btn bg-blue" >Supprimer</button>
         </div>
-    </form>
+
 </div>
 
-<script type="text/javascript" src="../js/jquery.js"></script>
+
+
 <script type="text/javascript" src="../js/index.js"></script>
+<script type="text/javascript" src="../js/aquarium.js"></script>
 
 
 </body>

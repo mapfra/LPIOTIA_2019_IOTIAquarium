@@ -16,12 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:500&display=swap');
 * {
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
-
-    font-family: Arial;
     margin: 0;
     padding: 0;
+    font-family: "Montserrat", sans-serif;
 }
 html{
     width: 100%;
@@ -62,10 +62,19 @@ body {
     left: calc(50% - (386px/2));
     margin-top: 50px;
 }
+
+.btn-action{
+    position: fixed;
+    top: 22%;
+    left: calc(50% - (386px/2));
+    margin-top: 10px;
+}
+
 .input-user{
     margin-bottom: -90px;
     margin-top: 60px;
 }
+
 .btn{
     width: 386px;
     height: 90px;
@@ -85,6 +94,11 @@ body {
 
 .bg-blue{
     background-color: #3fa9f5;
+    color: white;
+}
+
+.bg-black{
+    background-color: black;
     color: white;
 }
 
@@ -296,4 +310,8 @@ a:visited {
 
 a:hover {
 
+}
+
+#aquarium_id{
+    margin-top: 8%;
 }
