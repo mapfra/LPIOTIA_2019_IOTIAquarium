@@ -100,12 +100,121 @@ div.round canvas{
 .block{
 
     top:10%;
-    margin-top: 3%;
-    /*background-color: #3fa9f5;*/
+    margin-top: 4%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 .mh1{
     font-size: 45px;
+}
+
+/*ph*/
+#body-container {
+    width: 40%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#content {
+    padding-top: 8px;
+    width: 70%;
+    margin-left: 12.5%;
+}
+
+.donnee {
+    background-color: #ffffff;
+    background-color: hsla(0,100%,100%,0.5);
+    color: #64645A;
+    padding: inherit;
+    text-shadow:1px 1px 14px rgba(8,8,8,0.1);
+    color:#000000;
+    background-color:#DEF3FF;
+    /*border: 9px inset #ADE9FF;*/
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkite-border-radius: 10px;
+   /* letter-spacing: 0.2em;*/
+    /*word-spacing:7pt;*/
+    font-size:48px;
+    text-align:center;
+    /*line-height:2;*/
+}
+
+p {
+    padding: 5px;
+    margin: 0.2px;
+    text-align:center;
+    border: 1px inset #ADE9FF;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkite-border-radius: 8px;
+}
+
+p:hover {
+    font-size: 105%;
+    padding: 0.7em;
+}
+
+p.zero {
+    text-shadow: 2px 2px 7px #111111;
+    background-color: rgb(238,62,128);
+}
+
+p.one {
+    background-color: rgb(244,90,139);
+}
+
+p.two {
+    background-color: rgb(243,106,152);
+}
+
+p.three {
+    background-color: rgb(244,123,166);
+}
+
+p.four {
+    background-color: rgb(245,140,178);
+}
+
+p.five {
+    background-color: rgb(246,159,192);
+}
+
+p.six {
+    background-color: rgb(245,176,204);
+}
+
+p.seven {
+    text-shadow: 2px 2px 7px #111111;
+    background-color: rgb(0,187,136);
+}
+
+p.eight {
+    background-color: rgb(140,202,242);
+}
+
+p.nine {
+    background-color: rgb(114,193,240);
+}
+
+p.ten {
+    background-color: rgb(84,182,237);
+}
+
+p.eleven {
+    background-color: rgb(48,170,233);
+}
+
+p.twelve {
+    background-color: rgb(0,160,230);
+}
+
+p.thirteen {
+    background-color: rgb(0,149,226);
+}
+
+p.fourteen {
+    text-shadow: 2px 2px 7px #111111;
+    background-color: rgb(0,136,221);
 }

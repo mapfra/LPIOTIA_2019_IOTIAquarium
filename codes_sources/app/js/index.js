@@ -21,6 +21,7 @@ var app = {
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
         document.addEventListener('load_aquarium', this.load_aquarium.bind(this), false);
+
     },
 
     // deviceready Event Handler
@@ -37,6 +38,7 @@ var app = {
 
         let aquarium_list = $(".aquarium");
 
+
         console.log(aquarium_list);
 
         if (aquarium_list.length==0){
@@ -46,20 +48,27 @@ var app = {
             $("#rien_ici").remove();
             //  Dynamic loading
         }
-
+        let i = 0;
         let me = this;
         $("#aquarium_add").on('click', function () {
-            me.add_aquarium();
+            me.add_aquarium(i);
+            i++;
         })
     },
 
-    add_aquarium: function ()  {
+
+
+    add_aquarium: function (i)  {
 
         // get parrent
         let parent = $("#aquarium_parent");
 
+        var str = i.toString();
+        /*let ids = 'aquarium_';
+        var conc = ids.concat(str);*/
+
         //  on ajoute l'enfant
-        parent.append("<form id='aquarium_id'>" +
+        parent.append(`<form id='aquarium_${str}'>` +
             "<a href=\"aquarium.html?aquarium=aquarium_id\">" +
             "<section class=\"aquarium bg-blue\" >" +
             "<h2 class=\"aquarium-name\">Name</h2>" +
@@ -70,13 +79,25 @@ var app = {
             "<td class=\"aquarium-details-item\">Temperature</td>"+
             "<td class=\"aquarium-details-item\">Lumiere</td>"+
             "</tr>"+
+            `<button id='btn_${str}' class=\"btnsup\" onclick ="sup_form('aquarium_${str}')">Supprimer</button>`+
             "</table>"+
             "</section>"+
             "</a>" +
             "</form>");
+        i++;
 
     },
-    // Update DOM on a Received Event
+
+    sup_form: function(d) {
+        let parent = document.getElementById("aquarium_parent");
+        let d_form= document.getElementById(d);
+        parent.remove(d_form);
+        alert(d);
+        consol.log(d);
+    },
+
+
+// Update DOM on a Received Event
     receivedEvent: function(id) {
 
     }
