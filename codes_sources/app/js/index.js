@@ -52,8 +52,15 @@ var app = {
         let me = this;
         $("#aquarium_add").on('click', function () {
             me.add_aquarium(i);
+            console.log(`#btn_delete_${i}`);
+            let saloperie =i;
+            $(`#btn_delete_${i}`).on('click', function () {
+                console.log(`aquarium_${saloperie}`);
+                me.sup_form(`aquarium_${saloperie}`);
+
+            });
             i++;
-        })
+        });
     },
 
 
@@ -68,7 +75,7 @@ var app = {
         var conc = ids.concat(str);*/
 
         //  on ajoute l'enfant
-        parent.append(`<form id='aquarium_${str}'>` +
+        parent.append(`<div id='aquarium_${str}'>` +
             "<a href=\"aquarium.html?aquarium=aquarium_id\">" +
             "<section class=\"aquarium bg-blue\" >" +
             "<h2 class=\"aquarium-name\">Name</h2>" +
@@ -79,21 +86,23 @@ var app = {
             "<td class=\"aquarium-details-item\">Temperature</td>"+
             "<td class=\"aquarium-details-item\">Lumiere</td>"+
             "</tr>"+
-            `<button id='btn_${str}' class=\"btnsup\" onclick ="sup_form('aquarium_${str}')">Supprimer</button>`+
             "</table>"+
             "</section>"+
             "</a>" +
-            "</form>");
-        i++;
-
+            `<button id='btn_delete_${str}' class=\"btnsup\">Supprimer</button>`+
+            "</div>");
     },
 
     sup_form: function(d) {
-        let parent = document.getElementById("aquarium_parent");
-        let d_form= document.getElementById(d);
-        parent.remove(d_form);
+        //let parent = document.getElementById("aquarium_parent");
+        //let d_form = document.getElementById(d);
+        let d_form = $("#"+d);
+        console.log(d_form);
+        //console.log(parent);
+        //parent.remove(d_form);
+        d_form.remove();
         alert(d);
-        consol.log(d);
+        console.log(d_form);
     },
 
 
