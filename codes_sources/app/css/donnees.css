@@ -91,11 +91,16 @@ div.round canvas{
 
 /*architecture page données*/
 .lrange{
-    margin-left: 15%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+    margin-bottom: auto;
 }
 .range{
-    margin-top:3%;
-    margin-right:15%;
+    margin-top: 3%;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 .block{
 
@@ -111,9 +116,11 @@ div.round canvas{
 
 /*ph*/
 #body-container {
-    width: 40%;
-    margin-right: auto;
     margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+    /* margin-top: auto; */
+    margin-bottom: auto;
 }
 
 #content {

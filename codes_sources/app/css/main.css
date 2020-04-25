@@ -109,10 +109,11 @@ button.bg-blue:hover{
     color: white;
 }
 .btnsup{
-    float: right;
+    //float: right;
     border-radius: 10px;
     background-color: #bfe3fc;
     color: white;
+    padding:0.6%;
 }
 
 
@@ -301,6 +302,7 @@ header>div{
 a{
     outline: none;
     text-decoration: none;
+    color:white;
 }
 
 a:link {
@@ -316,6 +318,6 @@ a:hover {
 
 }
 
-#aquarium_id{
-    margin-top: 8%;
+#aquarium_parent{
+    margin-top: 3%;
 }

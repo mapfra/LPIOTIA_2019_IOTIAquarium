@@ -76,8 +76,8 @@ var app = {
 
         //  on ajoute l'enfant
         parent.append(`<div id='aquarium_${str}'>` +
-            "<a href=\"aquarium.html?aquarium=aquarium_id\">" +
             "<section class=\"aquarium bg-blue\" >" +
+            "<a href=\"aquarium.html?aquarium=aquarium_id\">" +
             "<h2 class=\"aquarium-name\">Name</h2>" +
             "<table class=\"aquarium-details\">"+
             "<tr>"+
