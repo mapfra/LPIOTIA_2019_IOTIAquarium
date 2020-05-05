@@ -1,0 +1,19 @@
+{
+  "name": "api_acquarium",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "influxdb-nodejs": "^3.1.0"
+  },
+  "devDependencies": {
+    "http": "0.0.1-security"
+  }
+}
