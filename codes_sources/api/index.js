@@ -23,7 +23,9 @@ const users = [];
 users.push({
     userid:1,
     aquariums:[
-        {id:1, sensors:[], triggers:[], deleted: false},
+        {id:1, sensors:[
+                {id:'ph_sensor',shard_name:'ph_sensor'}
+            ], triggers:[], deleted: false},
         {id:2, sensors:[], triggers:[], deleted: false}
     ]
 });
@@ -55,17 +57,19 @@ app.get(`${versionAPI}/aquarium/:id`, (req, res) =>{
 });
 
 
-//  Insersion d'une valeur pour le ph_sensor
-app.post(`${versionAPI}/users/:userid/aquariums/:aquariumid/ph_sensor`, (req, res) =>{
+//  Insersion d'un sensor dans influxdb
+app.post(`${versionAPI}/users/:userid/aquariums/:aquariumid/sensor/:sensor`, (req, res) =>{
     let userid = req.params.userid;
     let aquariumid = req.params.aquariumid;
+    let sensorname = req.params.sensor;
     let aquarium = iotiaquarium.getAquariumById(users,aquariumid);
+    let sensor= iotiaquarium.getSensorByName(users,aquarium,sensorname);
     let value = req.body.value;
 
     let status = false;
 
-    if(aquarium!=undefined){
-        iotiaquarium.insertPhValuesByAquariumId(client,aquariumid,userid,value);
+    if(aquarium!=undefined && sensor!=undefined){
+        iotiaquarium.insertDataByAquariumId(client,aquariumid,userid,sensor,value);
         status = true;
     }
     // get barer
@@ -73,16 +77,42 @@ app.post(`${versionAPI}/users/:userid/aquariums/:aquariumid/ph_sensor`, (req, re
         data:  value,
         status:status
     })
+
 });
 
-//  Recuperation valeurs de ph_sensor
-app.get(`${versionAPI}/users/:userid/aquariums/:aquariumid/ph_sensor`, (req, res) =>{
+//  Insersion d'un trigger dans influxdb
+app.post(`${versionAPI}/users/:userid/aquariums/:aquariumid/trigger/:trigger`, (req, res) =>{
     let userid = req.params.userid;
     let aquariumid = req.params.aquariumid;
+    let triggername = req.params.trigger;
     let aquarium = iotiaquarium.getAquariumById(users,aquariumid);
+    let trigger= iotiaquarium.getTriggerByName(users,aquarium,triggername);
+    let value = req.body.value;
 
-    if(aquarium!=undefined){
-        iotiaquarium.getPhValuesByAquariumId(client,aquariumid,userid, res);
+    let status = false;
+
+    if(aquarium!=undefined && trigger!=undefined){
+        iotiaquarium.insertDataByAquariumId(client,aquariumid,userid,trigger,value);
+        status = true;
+    }
+    // get barer
+    res.json({
+        data:  value,
+        status:status
+    })
+
+});
+
+//  Recuperation valeurs des sensor
+app.get(`${versionAPI}/users/:userid/aquariums/:aquariumid/sensor/:sensor`, (req, res) =>{
+    let userid = req.params.userid;
+    let aquariumid = req.params.aquariumid;
+    let sensorname = req.params.sensor;
+    let aquarium = iotiaquarium.getAquariumById(users,aquariumid);
+    let sensor = iotiaquarium.getSensorByName(users,aquarium,sensorname);
+
+    if(aquarium!=undefined && sensor!=undefined) {
+        iotiaquarium.getDataByAquariumId(client,aquariumid,userid,sensor, res);
     }else{
         // get barer
         res.json({
@@ -93,9 +123,29 @@ app.get(`${versionAPI}/users/:userid/aquariums/:aquariumid/ph_sensor`, (req, res
 
 });
 
+//  Recuperation valeurs des triggers
+app.get(`${versionAPI}/users/:userid/aquariums/:aquariumid/trigger/:trigger`, (req, res) =>{
+    let userid = req.params.userid;
+    let aquariumid = req.params.aquariumid;
+    let triggername = req.params.trigger;
+    let aquarium = iotiaquarium.getAquariumById(users,aquariumid);
+    let trigger = iotiaquarium.getTriggerByName(users,aquarium,triggername);
+
+    if(aquarium!=undefined && trigger!=undefined ){
+        iotiaquarium.getDataByAquariumId(client,aquariumid,userid,trigger, res);
+    }else{
+        // get barer
+        res.json({
+            data:  null,
+            status:false
+        })
+    }
+
+});
 
 app.get(`${versionAPI}/aquarium/:id/datas`, (req, res) =>{
-    var id = req.params.id;
+    let aquariumid = req.params.aquariumid;
+
     res.json({
         data: iotiaquarium.getDataByAquariumId(id).aquariums || null
     })

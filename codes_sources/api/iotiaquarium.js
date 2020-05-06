@@ -8,8 +8,10 @@ module.exports.getAquariumById = getAquariumById;
 module.exports.getAquariumByIdDatas = getAquariumByIdDatas ;
 module.exports.getAquariumByIdLight = getAquariumByIdLight;
 module.exports.getAquariumByIdFood = getAquariumByIdFood;
-module.exports.insertPhValuesByAquariumId = insertPhValuesByAquariumId;
-module.exports.getPhValuesByAquariumId = getPhValuesByAquariumId;
+module.exports.insertDataByAquariumId = insertDataByAquariumId;
+module.exports.getDataByAquariumId = getDataByAquariumId;
+module.exports.getSensorByName = getSensorByName;
+module.exports.getTriggerByName = getTriggerByName;
 
 
 function getUserById(users, userId) {
@@ -28,10 +30,9 @@ function getAquariumById(users, aquariumId) {
     return result;
 }
 
-function getPhValuesByAquariumId(client,aquariumId,userId, response) {
+function getDataByAquariumId(client,aquariumId,userId, composant, response) {
 
-
-    client.query('ph_sensor')
+    client.query(composant.shard_name)
         .where('aquarium', `${aquariumId}`)
         .where('user', `${userId}`)
         .then((values)=>{
@@ -48,9 +49,23 @@ function getPhValuesByAquariumId(client,aquariumId,userId, response) {
 
 }
 
-function insertPhValuesByAquariumId(client,aquariumId, userId, value) {
+function getSensorByName(users, aquarium, name)
+{
+    let result =  null;
 
-    return client.write('ph_sensor')
+    return aquarium.sensors.find(s => s.id==name);
+}
+
+function getTriggerByName(users, aquarium, name)
+{
+    let result =  null;
+
+    return aquarium.triggers.find(s => s.id==name);
+}
+
+function insertDataByAquariumId(client,aquariumId, userId, composant, value) {
+
+    return client.write(composant.shard_name)
         .tag({
             aquarium: aquariumId,
             user: userId
