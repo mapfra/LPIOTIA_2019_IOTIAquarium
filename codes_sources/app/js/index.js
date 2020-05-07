@@ -78,7 +78,7 @@ var app = {
         parent.append(`<div id='aquarium_${str}'>` +
             "<section class=\"aquarium bg-blue\" >" +
             "<a href=\"aquarium.html?aquarium=aquarium_id\">" +
-            "<h2 class=\"aquarium-name\">Name</h2>" +
+            "<h3 class=\"aquarium-name\">Name</h3>" +
             "<table class=\"aquarium-details\">"+
             "<tr>"+
             "<td class=\"aquarium-details-item\">Status</td>"+
@@ -104,7 +104,6 @@ var app = {
         alert(d);
         console.log(d_form);
     },
-
 
 // Update DOM on a Received Event
     receivedEvent: function(id) {

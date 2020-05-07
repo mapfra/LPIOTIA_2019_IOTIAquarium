@@ -13,7 +13,6 @@ label {
  .time{
      font-size: 48px;
  }
-
  .fontsiz{
      background-color: #ffffff;
      background-color: hsla(0,100%,100%,0.5);
@@ -28,10 +27,9 @@ label {
      -webkite-border-radius: 10px;
      /* letter-spacing: 0.2em;*/
      /*word-spacing:7pt;*/
-     font-size:48px;
+     font-size:180%;
      text-align:center;
-     /*line-height:2;*/
-
+     line-height:2;
  }
 small{
     background-color: #ffffff;
@@ -44,11 +42,26 @@ small{
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkite-border-radius: 10px;
-    font-size:30px;
+    font-size:165%;
 }
 .marge{
     margin-top: 7%;
 }
 .dec{
     margin-left: 36%;
+}
+@media screen and (max-width:600px) {
+   .marge {
+       margin-top:15%;
+       margin-right: 5%;
+   }
+    .fontsiz {
+        font-size:110%;
+    }
+    small{
+        font-size : 100%;
+    }
+    .time{
+        font-size:35px;
+    }
 }

@@ -52,6 +52,7 @@ body {
 
 .index-home{
     /*margin-top: 30%;*/
+    /**/
 }
 
 .btn-user{
@@ -62,10 +63,10 @@ body {
 }
 
 .btn-action{
-    position: fixed;
-    top: 22%;
-    left: calc(50% - (386px/2));
-    margin-top: 10px;
+    /*position: fixed;*/
+   /*top: 22%;*/
+   /* left: calc(50% - (386px/2));*/
+    margin-left: 3%;
 }
 
 .input-user{
@@ -125,6 +126,11 @@ h1 {
     padding:0px;
     padding-top: 5px;
     text-align:center;
+
+}
+h2 {
+    margin-top:8%;
+
 }
 
 
@@ -136,6 +142,7 @@ header{
     left: 0px;
     background: linear-gradient(#bfe3fc,80%, #d4eafc);
     text-align: center;
+    z-index:1000;
 }
 
 header>div{
@@ -229,7 +236,7 @@ header>div{
     }
 
     h1 {
-        font-size:33px;
+        font-size:27px;
         font-weight:normal;
         margin:0px;
         overflow:visible;
@@ -265,6 +272,18 @@ header>div{
         height: 100px;
         padding: 5px;
     }
+    a{
+        font-size: 15px;
+    }
+    .btn {
+        font-size: 15px;
+    }
+
+    h2 {
+        margin-top:30%;
+
+    }
+
 
 
 }
