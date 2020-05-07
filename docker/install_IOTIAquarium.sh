@@ -10,7 +10,7 @@ set -o nounset
 # verifier les dependances
 exitErreur="false"
 # docker
-if [ $(dpkg-query -W -f='${Status}' docker 2>/dev/null | grep -c "ok installed") -eq 0 ];
+if ! docker --version;
 then
   echo "Docker n'est pas present, pour continuer veuillez suivre la procedure du README."
   exitErreur="true"
@@ -28,7 +28,7 @@ then
 fi
 
 # creer le fichier contenant la variable d'environement pour identifier le projet avec docker
-echo 'COMPOSE_PROJECT_NAME=iotaquarium' > .env
+echo 'COMPOSE_PROJECT_NAME=iotiaquarium' > .env
 
 # verifier la présence des fichiers importants
 if [ ! -f docker-compose.yaml ]; then
@@ -55,13 +55,15 @@ then
 fi
 
 # demande les identifiants
-echo "==> Identifiants InfluxDB"
-read -p "Veuillez entrer l'identifiant admin d'influxDB : " INFLUXDB_ADMIN_USER
+echo "==> Identifiants InfluxDB`echo $'\n'`"
+read -p "Veuillez entrer l'identifiant admin d'influxDB : `echo $'\n> '`" INFLUXDB_ADMIN_USER
 read -s -p "Veuillez entrer le mot de passe admin d'influxDB : `echo $'\n> '`" INFLUXDB_ADMIN_PASSWORD
-echo "==> Identifiants Mosquitto"
-read -p "Veuillez entrer l'identifiant admin de Mosquitto : " MOSQUITTO_ADMIN_USER
+echo $'\n'
+echo "==> Identifiants Mosquitto`echo $'\n'`"
+read -p "Veuillez entrer l'identifiant admin de Mosquitto : `echo $'\n> '`" MOSQUITTO_ADMIN_USER
 read -s -p "Veuillez entrer le mot de passe admin de Mosquitto : `echo $'\n> '`" MOSQUITTO_ADMIN_PASSWORD
-echo "==> Certificat OpenSSL"
+echo $'\n'
+echo "==> Certificat OpenSSL`echo $'\n'`"
 read -s -p "Veuillez entrer le mot de passe de la cle SSL du CA : `echo $'\n> '`" OPENSSL_PASSWORD
 
 # config openssl
@@ -101,11 +103,11 @@ openssl req -new -key server.key -out server.req \
 openssl x509 -req -in server.req -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt  -passin pass:$password -days 1800 
 cd ..
 
-# télécharge les images docker si besoin
+# telecharger les images docker si besoin
 echo "==> Docker Image Pull"
 docker-compose pull
 
-# prepaper le fichier de sauvegarde de mosquitto
+# preparer le fichier de sauvegarde de mosquitto
 touch data/pwfile
 
 echo "==> Demarrer les services Mosquitto et InfluxDB"
@@ -132,36 +134,36 @@ docker exec -it influxdb                 \
 echo "  ==> Configuration de la bdd"
 docker exec -it influxdb                 				   \
   influx -username $INFLUXDB_ADMIN_USER -password $INFLUXDB_ADMIN_PASSWORD \
-    -execute 'CREATE DATABASE iotaquarium;'
+    -execute 'CREATE DATABASE iotiaquarium;'
 echo "  ==> Configuration des regles de gestion des donnees : On garde une valeur durant 24h"
 docker exec -it influxdb                 				   \
   influx -username $INFLUXDB_ADMIN_USER -password $INFLUXDB_ADMIN_PASSWORD \
-    -execute 'CREATE RETENTION POLICY "one_day" ON "iotaquarium" DURATION 1d REPLICATION 1 DEFAULT;'
+    -execute 'CREATE RETENTION POLICY "one_day" ON "iotiaquarium" DURATION 1d REPLICATION 1 DEFAULT;'
 echo "  ==> Configuration des regles de gestion des donnees : On garde la moyenne d'un ensemble de valeur durant 1 an"
 docker exec -it influxdb                 				   \
   influx -username $INFLUXDB_ADMIN_USER -password $INFLUXDB_ADMIN_PASSWORD \
-    -execute 'CREATE RETENTION POLICY "one_year" ON "iotaquarium" DURATION 52w REPLICATION 1;'
+    -execute 'CREATE RETENTION POLICY "one_year" ON "iotiaquarium" DURATION 52w REPLICATION 1;'
 echo "  ==> Creation des requetes recursives qui vont faire une moyenne des valeurs des dernieres 24h et utiliser la regle un_an"
 echo "    ==> requete 1/5 light_sensor"
 docker exec -it influxdb                 				   \
   influx -username $INFLUXDB_ADMIN_USER -password $INFLUXDB_ADMIN_PASSWORD \
-    -execute 'CREATE CONTINUOUS QUERY "req_1d_light_sensor" ON "iotaquarium" BEGIN SELECT mean("value") AS "mean_value" INTO "one_year"."mean_light_sensor" FROM "light_sensor" GROUP BY time(1d) END;'
+    -execute 'CREATE CONTINUOUS QUERY "req_1d_light_sensor" ON "iotiaquarium" BEGIN SELECT mean("value") AS "mean_value" INTO "one_year"."mean_light_sensor" FROM "light_sensor" GROUP BY time(1d) END;'
 echo "    ==> requete 2/5 ph_sensor"
 docker exec -it influxdb                 				   \
   influx -username $INFLUXDB_ADMIN_USER -password $INFLUXDB_ADMIN_PASSWORD \
-    -execute 'CREATE CONTINUOUS QUERY "req_1d_ph_sensor" ON "iotaquarium" BEGIN SELECT mean("value") AS "mean_value" INTO "one_year"."mean_ph_sensor" FROM "ph_sensor" GROUP BY time(1d) END;'
+    -execute 'CREATE CONTINUOUS QUERY "req_1d_ph_sensor" ON "iotiaquarium" BEGIN SELECT mean("value") AS "mean_value" INTO "one_year"."mean_ph_sensor" FROM "ph_sensor" GROUP BY time(1d) END;'
 echo "    ==> requete 3/5 water_sensor"
 docker exec -it influxdb                 				   \
   influx -username $INFLUXDB_ADMIN_USER -password $INFLUXDB_ADMIN_PASSWORD \
-    -execute 'CREATE CONTINUOUS QUERY "req_1d_water_sensor" ON "iotaquarium" BEGIN SELECT mean("value") AS "mean_value" INTO "one_year"."mean_water_sensor" FROM "water_sensor" GROUP BY time(1d) END;'
+    -execute 'CREATE CONTINUOUS QUERY "req_1d_water_sensor" ON "iotiaquarium" BEGIN SELECT mean("value") AS "mean_value" INTO "one_year"."mean_water_sensor" FROM "water_sensor" GROUP BY time(1d) END;'
 echo "    ==> requete 4/5 light_trigger"
 docker exec -it influxdb                 				   \
   influx -username $INFLUXDB_ADMIN_USER -password $INFLUXDB_ADMIN_PASSWORD \
-    -execute 'CREATE CONTINUOUS QUERY "req_1d_light_trigger" ON "iotaquarium" BEGIN SELECT mean("value") AS "mean_value" INTO "one_year"."mean_light_trigger" FROM "light_trigger" GROUP BY time(1d) END;'
+    -execute 'CREATE CONTINUOUS QUERY "req_1d_light_trigger" ON "iotiaquarium" BEGIN SELECT mean("value") AS "mean_value" INTO "one_year"."mean_light_trigger" FROM "light_trigger" GROUP BY time(1d) END;'
 echo "    ==> requete 5/5 food_trigger"
 docker exec -it influxdb                 				   \
   influx -username $INFLUXDB_ADMIN_USER -password $INFLUXDB_ADMIN_PASSWORD \
-    -execute 'CREATE CONTINUOUS QUERY "req_1d_food_trigger" ON "iotaquarium" BEGIN SELECT mean("value") AS "mean_value" INTO "one_year"."mean_food_trigger" FROM "food_trigger" GROUP BY time(1d) END;'
+    -execute 'CREATE CONTINUOUS QUERY "req_1d_food_trigger" ON "iotiaquarium" BEGIN SELECT mean("value") AS "mean_value" INTO "one_year"."mean_food_trigger" FROM "food_trigger" GROUP BY time(1d) END;'
 
 echo "  ==> Configuration de la bdd de test"
 docker exec -it influxdb                 				   \
@@ -190,4 +192,3 @@ echo -ne '\n'
 
 echo "==> Monitoring InfluxDB et Mosquitto"
 docker-compose logs -f
-

@@ -48,17 +48,17 @@ Manipulation sur la machine hôte, se placer dans un répertoire adéquat, par e
 
 Si nécessaire regler les droits
 ```bash
-$ chmod +x install_IOTAquarium.sh
-$ chmod +x uninstall_IOTAquarium.sh
+$ chmod +x install_IOTIAquarium.sh
+$ chmod +x uninstall_IOTIAquarium.sh
 ```
 ## Installation
 ```bash
-$ ./install_IOTAquarium.sh
+$ ./install_IOTIAquarium.sh
 ```
 ## Désinstallation
 
 ```bash
-$ ./uninstall_IOTAquarium.sh
+$ ./uninstall_IOTIAquarium.sh
 ```
 ## Certificat
 Le certificat contenant la clé publique (à distribuer à vos clients) se trouve dans le répertoire data sous le nom ca.crt, dans notre exemple le chemin sera /home/\<username\>/docker/data/ca.crt.

@@ -13,4 +13,4 @@ docker container rm influxdb
 docker container rm mosquitto
 
 #supprimer le volume contenant les donnees de la bdd
-docker volume rm iotaquarium_influxdb-lib
+docker volume rm iotiaquarium_influxdb-lib
