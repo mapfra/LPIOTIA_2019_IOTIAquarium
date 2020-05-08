@@ -95,7 +95,14 @@ Attention les changements du fichier docker-compose.yml nécessite l'extinction 
 
 Notre image Docker custom d'un mosquito (sans certificat) sera publiée sur DockerHub 
 [https://hub.docker.com/repository/docker/lpiotia/mqtt](https://hub.docker.com/repository/docker/lpiotia/mqtt)
+
+Pour le partage de clé publique nous avons adopté un solution ne demandant pas de serveur ftp externe ou interne. La clé est uploadé sur firefoxSend un service Open-Source de la fondation Mozilla. Le lien est ensuite envoyer sur le compte Github de l'utilisateur sous forme de Gist (petit dépot git créé pour ce genre d'opération).
+
+La dernière problèmatique à résoudre est la capacité à réagir en cas d'erreur, pour y répondre le script se termine par une session de monitoring en temps réél qui permet de surveiller l'activité des différents containers trés utile en cas de bugs ou pour surveiller les personnes connectées.
 ___
 
 ## Point sécurité pour mosquito
 Le port 1883 sera fermé vers l'extérieur pour permettre une identification par mot de passe sur le réseau local. L'identification par certificat *et* mot de passe sera réservé au port 8883 ouvert vers l'extérieur. Pour la connection au Brain nous utilisons la technologie des websocket sur le port 8080 avec la même sécurité que pour la connection TLS (certificat + idenntifiant/mot de passe).
+
+## Point sécurité pour InfluxDB
+Le port 8086 sera fermé vers l'extérieur pour permettre une identification par mot de passe sur le réseau local. Pas d'accès extérieur.
