@@ -158,67 +158,71 @@ p:hover {
     padding: 0.7em;
 }
 
-p.zero {
+p._0{
     text-shadow: 2px 2px 7px #111111;
     background-color: rgb(238,62,128);
 }
 
-p.one {
+p._1 {
     background-color: rgb(244,90,139);
 }
 
-p.two {
+p._2{
     background-color: rgb(243,106,152);
 }
 
-p.three {
+p._3{
     background-color: rgb(244,123,166);
 }
 
-p.four {
+p._4 {
     background-color: rgb(245,140,178);
 }
 
-p.five {
+p._5{
     background-color: rgb(246,159,192);
 }
 
-p.six {
+p._6 {
     background-color: rgb(245,176,204);
 }
 
-p.seven {
+p._7 {
     text-shadow: 2px 2px 7px #111111;
-    background-color: rgb(0,187,136);
+    background-color: rgb(10, 255, 238);
 }
 
-p.eight {
+p._8 {
     background-color: rgb(140,202,242);
 }
 
-p.nine {
+p._9 {
     background-color: rgb(114,193,240);
 }
 
-p.ten {
+p._10 {
     background-color: rgb(84,182,237);
 }
 
-p.eleven {
+p._11 {
     background-color: rgb(48,170,233);
 }
 
-p.twelve {
+p._12 {
     background-color: rgb(0,160,230);
 }
 
-p.thirteen {
+p._13 {
     background-color: rgb(0,149,226);
 }
 
-p.fourteen {
+p._14{
     text-shadow: 2px 2px 7px #111111;
     background-color: rgb(0,136,221);
+}
+p.ph_active{
+    background-color: rgb(25, 255, 19);
+    height: 35px;
 }
 
 @media screen and (max-width: 600px)

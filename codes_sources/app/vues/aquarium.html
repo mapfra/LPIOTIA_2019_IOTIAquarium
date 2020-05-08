@@ -2,7 +2,7 @@
 <html>
 <head>
 
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' http://localhost:3000 data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
@@ -27,11 +27,11 @@
     </form>
     <form>
         <div class="btn-action">
-            <button class="btn bg-black" ><a href="light.html">Allumer la lumière</a></button>
-            <button class="btn bg-black" ><a href="food.html">Nourrir poisson</a></button>
-            <button class="btn bg-black" >Activer la pompe</button>
-            <button class="btn bg-black" ><a href="donnees.html">Voir les données</a></button>
-            <button class="btn bg-black" >Deconnecter</button>
+            <a class="btn bg-black" href="light.html">Allumer la lumière</a>
+            <a class="btn bg-black" href="food.html">Nourrir poisson</a>
+            <a class="btn bg-black" >Activer la pompe</a>
+            <a id="btn_show_data" class="btn bg-black" href="donnees.html">Voir les données</a>
+            <a class="btn bg-black" >Deconnecter</a>
         </div>
     </form>
     <form>
@@ -43,6 +43,7 @@
 
 <script type="text/javascript" src="../js/jquery.js"></script>
 <script type="text/javascript" src="../js/index.js"></script>
+<script type="text/javascript" src="../js/aquarium_load_action_button.js"></script>
 
 </body>
 </html>

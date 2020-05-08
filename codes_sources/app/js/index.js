@@ -23,18 +23,28 @@ var app = {
     api_version:"v1",
 
     client:{
-        id:"",
+        id:"1",
         username:"",
         aquariums:[]
     },
+    current_aquarium:null,
+
 
     // Application Constructor
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
         document.addEventListener('load_aquarium', this.load_aquarium.bind(this), false);
+        document.addEventListener("load_data_ph_waterlevel_tempvalue", this.load_data.bind(this), false);
+        document.addEventListener("load_action_button_aquarium", this.load_action_button.bind(this), false);
 
     },
+    load_action_button(){
+        this.current_aquarium = this.GET("aquarium");
+        $("#btn_show_data").attr("href","donnees.html?aquarium="+this.current_aquarium);
 
+        console.log("je suis la");
+        console.log(this.GET("aquarium"));
+    },
     // deviceready Event Handler
     //
     // Bind any cordova events here. Common events are:
@@ -79,9 +89,10 @@ var app = {
         let i = 0;
         let me = this;
         $("#aquarium_add").on('click', function () {
-            me.add_aquarium(i);
+
             console.log(`#btn_delete_${i}`);
             let index =$(".aquarium").length+1;
+            me.add_aquarium(index);
             $(`#btn_delete_${i}`).on('click', function () {
                 console.log(`aquarium_${index}`);
                 me.sup_form(`aquarium_${index}`);
@@ -105,7 +116,7 @@ var app = {
         //  on ajoute l'enfant
         parent.append(`<div id='aquarium_${str}'>` +
             "<section class=\"aquarium bg-blue\" >" +
-            "<a href=\"aquarium.html?aquarium=aquarium_id\">" +
+            `<a href=\"aquarium.html?aquarium=${str}\">` +
             "<h3 class=\"aquarium-name\">Name</h3>" +
             "<table class=\"aquarium-details\">"+
             "<tr>"+
@@ -126,11 +137,13 @@ var app = {
             `<button id='btn_delete_${str}' class=\"btnsup\">Supprimer</button>`+
             "</div>");
 
-        this.getPhValue(i).then((value)=>{
-            $("#'aquarium_"+i+"_ph'").html(value);
+        this.getPhValue(i,(value)=>{
+            console.log("value:"+value[value.length-1][3]);
+            $("#aquarium_"+i+"_ph").html(value[value.length-1][3]);
+
         });
 
-        this.getWaterLevel(i).then((value)=>{
+        /*this.getWaterLevel(i).then((value)=>{
             $("#'aquarium_"+i+"_water_level'").html(value);
         });
 
@@ -140,155 +153,179 @@ var app = {
 
         this.getLightLevel(i).then((value)=>{
             $("#'aquarium_"+i+"_light_level'").html(value);
-        });
+        });*/
     },
 
-    getPhValue(aquariumid){
+    getPhValue(aquariumid,mycallback){
 
-
+        console.log("entrer:getPhValue");
         $.get(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/sensor/ph_sensor", (response)=>{
-            return new Promise(((resolve, reject) =>{
-                if (response.status){
-                    resolve(response.data)
-                }else{
-                    reject(response.status)
-                }
-            }));
+            /*console.log("response:");
+            console.log(response);*/
+            mycallback(response.data);
         });
 
     },
-    getWaterLevel(aquariumid){
+    getWaterLevel(aquariumid,mycallback){
 
         $.get(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/sensor/water_sensor", (response)=>{
-            return new Promise(((resolve, reject) =>{
+
                 if (response.status){
-                    resolve(response.data)
+                    mycallback(response.data);
                 }else{
-                    reject(response.status)
+                    mycallback(response.status);
                 }
-            }));
+
         });
 
     },
-    getHoursStartLight(aquariumid){
+    getHoursStartLight(aquariumid,mycallback){
 
         //TODO
 
         $.get(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/data/start_light_hours", (response)=>{
-            return new Promise(((resolve, reject) =>{
-                if (response.status){
-                    resolve(response.data)
-                }else{
-                    reject(response.status)
-                }
-            }));
+            if (response.status){
+                mycallback(response.data);
+            }else{
+                mycallback(response.status);
+            }
         });
 
     },
 
-    setHoursStartLight(aquariumid,value){
+    setHoursStartLight(aquariumid,value,mycallback){
         //TODO
 
         $.post(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/data/start_light_hours", {value:value},(response)=>{
-            return response.status;
+            mycallback(response.status);
         });
 
     },
-    getHoursEndLight(aquariumid){
+    getHoursEndLight(aquariumid,mycallback){
         //TODO
 
         $.get(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/data/end_light_hours", (response)=>{
-            return new Promise(((resolve, reject) =>{
-                if (response.status){
-                    resolve(response.data)
-                }else{
-                    reject(response.status)
-                }
-            }));
+            if (response.status){
+                mycallback(response.data);
+            }else{
+                mycallback(response.status);
+            }
         });
 
     },
-    setHoursEndLight(aquariumid,value){
+    setHoursEndLight(aquariumid,value,mycallback){
 
         //TODO
         $.post(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/data/end_light_hours", {value:value},(response)=>{
-            return response.status;
+            mycallback(response.status);
         });
 
     },
-    getHoursFood(aquariumid) {
+    getHoursFood(aquariumid,mycallback) {
         //TODO
 
         $.get(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/data/food_hours", (response)=>{
-            return new Promise(((resolve, reject) =>{
-                if (response.status){
-                    resolve(response.data)
-                }else{
-                    reject(response.status)
-                }
-            }));
+            if (response.status){
+                mycallback(response.data);
+            }else{
+                mycallback(response.status);
+            }
         });
 
     },
-    setHoursFood(aquariumid,value){
+    setHoursFood(aquariumid,value,mycallback){
 
         //TODO
 
         $.post(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/data/food_hours", {value:value},(response)=>{
-            return response.status;
+            mycallback(response.status);
         });
 
     },
 
-    getTemperature(aquariumid) {
+    getTemperature(aquariumid,mycallback) {
         //TODO : Il n'est pas dans le shema de db
 
-        $.get(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/sensor/temperature_sensor", (response)=>{
-            return new Promise(((resolve, reject) =>{
-                if (response.status){
-                    resolve(response.data)
-                }else{
-                    reject(response.status)
-                }
-            }));
+        $.get(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/sensor/temp_sensor", (response)=>{
+            if (response.status){
+                mycallback(response.data);
+            }else{
+                mycallback(response.status);
+            }
         });
 
     },
 
-    getLightLevel(aquariumid) {
+    getLightLevel(aquariumid,mycallback) {
 
         $.get(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/sensor/light_sensor", (response)=>{
-            return new Promise(((resolve, reject) =>{
-                if (response.status){
-                    resolve(response.data)
-                }else{
-                    reject(response.status)
-                }
-            }));
+            if (response.status){
+                mycallback(response.data);
+            }else{
+                mycallback(response.status);
+            }
         });
 
     },
 
-    turnOnLight(aquariumid) {
+    turnOnLight(aquariumid,mycallback) {
 
         $.post(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/trigger/light_trigger", {value:true},(response)=>{
-            return response.status;
+            mycallback(response.status);
         });
 
     },
 
-    turnOffLight(aquariumid) {
+    turnOffLight(aquariumid,mycallback) {
 
         $.post(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/trigger/light_trigger", {value:false},(response)=>{
-            return response.status;
+            mycallback(response.status);
         });
 
     },
 
-    startFeed(aquariumid) {
+    startFeed(aquariumid,mycallback) {
 
         $.post(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/trigger/feed_trigger", {date:new Date()},(response)=>{
-            return response.status;
+            mycallback(response.status);
+        });
+
+    },
+
+    load_data(){
+        let ph_value_html= $("#content");
+        let temp_value_html =$("#tempvalue");
+        let waterlevel_html = $("#input_water_level");
+
+        let aquariumid = this.GET("aquarium");
+
+        /*this.getWaterLevel(aquariumid,(value)=>{
+           waterlevel_html.val(value[value.length-1][3]);
+        });
+
+        this.getTemperature(aquariumid,(value)=>{
+
+            let val = ""+value[value.length-1][3];
+            let tab_val= val.split(".");
+            temp_value_html.html(`${tab_val[0]}<span>.${tab_val[1]}</span><strong>&deg;</strong>`);
+        });*/
+
+        this.getPhValue(aquariumid,(value)=>{
+
+            let val = ""+value[value.length-1][3];
+            let tab= $(".ph_level");
+            console.log(tab);
+            for(let i=0; i<tab.length; i++)
+            {
+                let elem=$(tab[i]);
+                elem.removeClass("ph_active");
+                console.log(tab[i]);
+                if (elem.hasClass("_"+val))
+                {
+                    elem.addClass("ph_active");
+                }
+            }
+
         });
 
     },
@@ -304,6 +341,21 @@ var app = {
         d_form.remove();
         alert(d);
         console.log(d_form);
+    },
+
+    GET(param) {
+        var vars = {};
+        window.location.href.replace( location.hash, '' ).replace(
+            /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+            function( m, key, value ) { // callback
+                vars[key] = value !== undefined ? value : '';
+            }
+        );
+
+        if ( param ) {
+            return vars[param] ? vars[param] : null;
+        }
+        return vars;
     },
 
 // Update DOM on a Received Event
