@@ -3,10 +3,6 @@
 # verifier que nous sommes en root ou sudo
 [ `whoami` = root ] || { sudo "$0" "$@"; exit $?; }
 
-# Si erreurs arreter le script
-set -o errexit
-set -o nounset
-
 # verifier les dependances
 exitErreur="false"
 # docker
@@ -26,7 +22,11 @@ then
   echo "OpenSSL n'est pas present, pour continuer veuillez l'installer."
   exitErreur="true"
 fi
-
+# curl
+if [ ! -f /usr/bin/curl ]; then
+  echo "Curl n'est pas present, pour continuer veuillez l'installer."
+  exitErreur="true"
+fi
 # creer le fichier contenant la variable d'environement pour identifier le projet avec docker
 echo 'COMPOSE_PROJECT_NAME=iotiaquarium' > .env
 
@@ -53,6 +53,22 @@ if [ "$exitErreur" == "true" ];
 then
   exit
 fi
+# supprimer une eventuelle precedente installation
+# arreter et supprimer les containers ainsi que les reseaux
+docker-compose down &> /dev/null
+
+# arreter et supprimer les containers si la commande plus haut a echoue
+docker container stop influxdb &> /dev/null
+docker container stop mosquitto &> /dev/null
+docker container rm influxdb &> /dev/null
+docker container rm mosquitto &> /dev/null
+
+#supprimer le volume contenant les donnees de la bdd
+docker volume rm iotiaquarium_influxdb-lib &> /dev/null
+
+# Si erreurs arreter le script
+set -o errexit
+set -o nounset
 
 # demande les identifiants
 read -p "Veuillez entrer votre identifiant gitHub (email) pour permettre un echange de cle publique : `echo $'\n> '`" GIT_USER
@@ -184,16 +200,10 @@ echo "==> Configuration mosquitto ok"
 docker-compose restart
 
 # attente de 25 sec pour laisser le temps aux service de démarrer
-echo -ne '#####                     (22%)\r'
-sleep 5
-echo -ne '########                  (35%)\r'
-sleep 5
-echo -ne '###########               (51%)\r'
-sleep 5
-echo -ne '#############             (66%)\r'
-sleep 5
-echo -ne '##################        (88%)\r'
-sleep 5
+echo -ne '#                         (1%)\r'
+sleep 10
+echo -ne '#######################   (99%)\r'
+sleep 15
 echo -ne '#######################   (100%)\r'
 echo -ne '\n'
 
@@ -201,51 +211,19 @@ echo "==> Partage du certificat contenant la cle publique"
 cd data/
 var=$(ffsend upload ca.crt)
 cd ..
+rm /usr/local/bin/ffsend
 # nom du gist
 # preparation de la trame json
 template='{"description": "cle publique pour iotiaquarium","public": false,"files": {"ca.crt": {"content": "%s"}}}'
 json_string=$(printf "$template" "$var")
 # envoie de la requete
-curl -u "${GIT_USER}" -X POST -d "${json_string}" "https://api.github.com/gists"
+curl -u "${GIT_USER}" -X POST -d "${json_string}" "https://api.github.com/gists" > /dev/null
 echo $'\n'
+echo -e "\e[41mVous pouvez retrouver la cle publique sur la page d'acceuil de votre compte gitHub\e[0m" 
+echo -e "\e[41mcliquez sur l'icone de votre profil en haut a gauche puis sur 'your gists' sinon utilisez le lien suivant\e[0m"
+echo -e "\e[44m $var \e[0m"
 echo $'\n'
+read -p "Si vous avez fini de lire, veuillez appuyer sur une touche pour continuer avec le monitoring Influx DB et Mosquitto..." -n1 -s
 echo $'\n'
-echo "Vous pouvez retrouver la cle publique sur la page d'acceuil de votre compte gitHub" 
-echo "cliquez sur l'icone de votre profil en haut a gauche puis sur 'your gists' sinon utilisez le lien suivant"
-echo $var
-echo $'\n'
-echo $'\n'
-echo -ne 'debut du monitoring Influx DB et Mosquitto dans 15s\r'
-sleep 1
-echo -ne 'debut du monitoring Influx DB et Mosquitto dans 14s\r'
-sleep 1
-echo -ne 'debut du monitoring Influx DB et Mosquitto dans 13s\r'
-sleep 1
-echo -ne 'debut du monitoring Influx DB et Mosquitto dans 12s\r'
-sleep 1
-echo -ne 'debut du monitoring Influx DB et Mosquitto dans 11s\r'
-sleep 1
-echo -ne 'debut du monitoring Influx DB et Mosquitto dans 10s\r'
-sleep 1
-echo -ne 'debut du monitoring Influx DB et Mosquitto dans 9s\r'
-sleep 1
-echo -ne 'debut du monitoring Influx DB et Mosquitto dans 8s\r'
-sleep 1
-echo -ne 'debut du monitoring Influx DB et Mosquitto dans 7s\r'
-sleep 1
-echo -ne 'debut du monitoring Influx DB et Mosquitto dans 6s\r'
-sleep 1
-echo -ne 'debut du monitoring Influx DB et Mosquitto dans 5s\r'
-sleep 1
-echo -ne 'debut du monitoring Influx DB et Mosquitto dans 4s\r'
-sleep 1
-echo -ne 'debut du monitoring Influx DB et Mosquitto dans 3s\r'
-sleep 1
-echo -ne 'debut du monitoring Influx DB et Mosquitto dans 2s\r'
-sleep 1
-echo -ne 'debut du monitoring Influx DB et Mosquitto dans 1s\r'
-sleep 1
-echo -ne 'debut du monitoring Influx DB et Mosquitto dans 0s\r'
-echo -ne '\n'
 echo "==> Monitoring InfluxDB et Mosquitto"
 docker-compose logs -f
