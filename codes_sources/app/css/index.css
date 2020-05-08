@@ -73,13 +73,14 @@ body {
     height: 72px;
     text-align: center;
     font-size: 30px;
-
+    border-radius: 30px;
     margin: 10px auto;
 }
 
 .bg-blue{
     background-color: #3fa9f5;
     color: white;
+    border-radius: 30px;
 }
 
 .txt-blue{
@@ -140,7 +141,7 @@ h1 {
         width: 143px;
         height: 35px;
         font-size: 15px;
-
+        border-radius: 30px;
         margin: 10px auto;
     }
 
