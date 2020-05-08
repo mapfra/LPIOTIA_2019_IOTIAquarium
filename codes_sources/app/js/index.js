@@ -81,7 +81,7 @@ var app = {
         $("#aquarium_add").on('click', function () {
             me.add_aquarium(i);
             console.log(`#btn_delete_${i}`);
-            let index =i;
+            let index =$(".aquarium").length+1;
             $(`#btn_delete_${i}`).on('click', function () {
                 console.log(`aquarium_${index}`);
                 me.sup_form(`aquarium_${index}`);
