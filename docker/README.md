@@ -5,6 +5,7 @@
 - Docker-CE 18.06+
 - Docker Compose v1.23.1+
 - OpenSSL
+- Curl
 
 ## Install de Docker et Docker-compose
 
@@ -50,11 +51,33 @@ Si nécessaire regler les droits
 ```bash
 $ chmod +x install_IOTIAquarium.sh
 $ chmod +x uninstall_IOTIAquarium.sh
+$ chmod +x shareKey.sh
 ```
 ## Installation
 ```bash
 $ ./install_IOTIAquarium.sh
 ```
+### Instructions d'installation
+Vous devrez renseigner plusieurs informations puis appuyer sur entrée pour continuer.
+- 1 : votre identifiant gitHub (l'adresse mail qui vous sert à vous identifier sur le site) pour permettre un échange de clé publique au travers d'un gist privé
+- 2 : un identifiant et mot de passe pour InfluxDB, ils seront utilisés pour la création de la base et les accès.
+- 3 : un identifiant et mot de passe pour Mosquitto, ils seront utilisés pour les accès.
+- 4 : un mot de passe qui sera utilisé pour créé le certificat TLS.
+- 5 : en fin de script, il vous serra demandé d'entrer votre mot de passe lié à l'identifiant gitHub renseigné en premier cela se fait directement avec l'API de gitHub nous ne stockons pas le mot de passe.
+
+Une ultime intervention humaine sera nécerraire à la fin du script, vous devrez appuyer sur une touche pour vous donner le temps de lire les dernières instructions.
+
+## Partage de clé publique
+```bash
+$ ./shareKey.sh
+```
+### A utiliser si vous voulez de nouveau partager la clé publique
+Vous devrez renseigner plusieurs informations puis appuyer sur entrée pour continuer.
+- 1 : votre identifiant gitHub (l'adresse mail qui vous sert à vous identifier sur le site) pour permettre un échange de clé publique au travers d'un gist privé
+- 2 : en fin de script, il vous serra demandé d'entrer votre mot de passe lié à l'identifiant gitHub renseigné en premier cela se fait directement avec l'API de gitHub nous ne stockons pas le mot de passe.
+
+Une ultime intervention humaine sera nécerraire à la fin du script, vous devrez appuyer sur une touche pour vous donner le temps de lire les dernières instructions.
+
 ## Désinstallation
 
 ```bash
@@ -75,4 +98,4 @@ Notre image Docker custom d'un mosquito (sans certificat) sera publiée sur Dock
 ___
 
 ## Point sécurité pour mosquito
-Le port 1883 sera fermé vers l'extérieur pour permettre une identification par mot de passe sur le réseau local. L'identification par certificat *et* mot de passe sera réservé au port 8883 ouvert vers l'extérieur. À noter qu'il est possible d'utiliser la technologie des websocket sur le port 8080 pour permettre la communication entre une api Web et mosquito. L'utilisation du protocole https nous fera préférer l'utilisation de let's encrypt plutôt qu'un certificat auto-signé.
+Le port 1883 sera fermé vers l'extérieur pour permettre une identification par mot de passe sur le réseau local. L'identification par certificat *et* mot de passe sera réservé au port 8883 ouvert vers l'extérieur. Pour la connection au Brain nous utilisons la technologie des websocket sur le port 8080 avec la même sécurité que pour la connection TLS (certificat + idenntifiant/mot de passe).
