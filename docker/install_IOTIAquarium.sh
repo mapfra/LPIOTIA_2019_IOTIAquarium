@@ -167,26 +167,30 @@ docker exec -it influxdb                 				   \
   influx -username $INFLUXDB_ADMIN_USER -password $INFLUXDB_ADMIN_PASSWORD \
     -execute 'CREATE RETENTION POLICY "one_year" ON "iotiaquarium" DURATION 52w REPLICATION 1;'
 echo "  ==> Creation des requetes recursives qui vont faire une moyenne des valeurs des dernieres 24h et utiliser la regle un_an"
-echo "    ==> requete 1/5 light_sensor"
+echo "    ==> requete 1/6 light_sensor"
 docker exec -it influxdb                 				   \
   influx -username $INFLUXDB_ADMIN_USER -password $INFLUXDB_ADMIN_PASSWORD \
     -execute 'CREATE CONTINUOUS QUERY "req_1d_light_sensor" ON "iotiaquarium" BEGIN SELECT mean("value") AS "mean_value" INTO "one_year"."mean_light_sensor" FROM "light_sensor" GROUP BY time(1d) END;'
-echo "    ==> requete 2/5 ph_sensor"
+echo "    ==> requete 2/6 ph_sensor"
 docker exec -it influxdb                 				   \
   influx -username $INFLUXDB_ADMIN_USER -password $INFLUXDB_ADMIN_PASSWORD \
     -execute 'CREATE CONTINUOUS QUERY "req_1d_ph_sensor" ON "iotiaquarium" BEGIN SELECT mean("value") AS "mean_value" INTO "one_year"."mean_ph_sensor" FROM "ph_sensor" GROUP BY time(1d) END;'
-echo "    ==> requete 3/5 water_sensor"
+echo "    ==> requete 3/6 water_sensor"
 docker exec -it influxdb                 				   \
   influx -username $INFLUXDB_ADMIN_USER -password $INFLUXDB_ADMIN_PASSWORD \
     -execute 'CREATE CONTINUOUS QUERY "req_1d_water_sensor" ON "iotiaquarium" BEGIN SELECT mean("value") AS "mean_value" INTO "one_year"."mean_water_sensor" FROM "water_sensor" GROUP BY time(1d) END;'
-echo "    ==> requete 4/5 light_trigger"
+echo "    ==> requete 4/6 light_trigger"
 docker exec -it influxdb                 				   \
   influx -username $INFLUXDB_ADMIN_USER -password $INFLUXDB_ADMIN_PASSWORD \
     -execute 'CREATE CONTINUOUS QUERY "req_1d_light_trigger" ON "iotiaquarium" BEGIN SELECT mean("value") AS "mean_value" INTO "one_year"."mean_light_trigger" FROM "light_trigger" GROUP BY time(1d) END;'
-echo "    ==> requete 5/5 food_trigger"
+echo "    ==> requete 5/6 food_trigger"
 docker exec -it influxdb                 				   \
   influx -username $INFLUXDB_ADMIN_USER -password $INFLUXDB_ADMIN_PASSWORD \
     -execute 'CREATE CONTINUOUS QUERY "req_1d_food_trigger" ON "iotiaquarium" BEGIN SELECT mean("value") AS "mean_value" INTO "one_year"."mean_food_trigger" FROM "food_trigger" GROUP BY time(1d) END;'
+echo "    ==> requete 6/6 temp_sensor"
+docker exec -it influxdb                 				   \
+  influx -username $INFLUXDB_ADMIN_USER -password $INFLUXDB_ADMIN_PASSWORD \
+    -execute 'CREATE CONTINUOUS QUERY "req_1d_temp_sensor" ON "iotiaquarium" BEGIN SELECT mean("value") AS "mean_value" INTO "one_year"."mean_temp_sensor" FROM "temp_sensor" GROUP BY time(1d) END;'
 
 echo "  ==> Configuration de la bdd de test"
 docker exec -it influxdb                 				   \
