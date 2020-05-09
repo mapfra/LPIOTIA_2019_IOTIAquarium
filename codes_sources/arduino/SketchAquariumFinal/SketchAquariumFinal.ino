@@ -141,52 +141,6 @@ void loop(void)
         //Envoi des informations via MQTT
         myMqtt.publish(topic, valueStr);  
   }
-  if(false = true)
-  {
-     //ouverture du volet
-        //sens1
-        analogWrite(ENA,0); //vitesse
-        digitalWrite(IN1,LOW); //sens du moteur (0.0 arret), (0.1 gauche droite), (1.0 droite gauche)
-        digitalWrite(IN2,HIGH);
-        analogWrite(ENA,255);
-        delay(60);
-        analogWrite(ENA,35);
-        //Temps de fonctionnement du moteur
-        delay(MotorDuration);
-        //fermeture du volet
-        //arret du moteur avant inversement des sens
-        analogWrite(ENA,0);
-        digitalWrite(IN1,HIGH);
-        digitalWrite(IN2,LOW);
-        analogWrite(ENA,255);
-        delay(60);
-        analogWrite(ENA,35);
-  }
-  if(false = true)
-  {
-     //ouverture du volet
-        //sens1
-        analogWrite(ENA,0); //vitesse
-        digitalWrite(IN1,LOW); //sens du moteur (0.0 arret), (0.1 gauche droite), (1.0 droite gauche)
-        digitalWrite(IN2,HIGH);
-        analogWrite(ENA,255);
-        delay(60);
-        analogWrite(ENA,35);
-        //Temps de fonctionnement du moteur
-        delay(MotorDuration);
-        //fermeture du volet
-        //arret du moteur avant inversement des sens
-        analogWrite(ENA,0);
-        digitalWrite(IN1,HIGH);
-        digitalWrite(IN2,LOW);
-        analogWrite(ENA,255);
-        delay(60);
-        analogWrite(ENA,35);
-  }
-  if(false = true)
-  {
-     write_matrix(A) ;
-  }
   if(SeuilpHValue <= phValue || SeuilWaterLevelsensor <= WaterLevelsensor || SeuildTempWater <= dTempWater || SeuilLightSensor <= LightSensor)
   {
       char* stringSend = "PHSensor="+pHValue + ";WaterLevelSensor=" + WaterLevelsensor + ";TemperatureSensor=" + dTempWater + ";LightSensor=" + LightSensor;
