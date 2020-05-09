@@ -138,27 +138,32 @@ app.post(`${versionAPI}/users`, (req, res) =>{
     let msg = null;
     let user = null;
     let status = false;
+    let usertest = null;
 
+    if (userId!=undefined && userId!=""){
+        usertest = iotiaquarium.getUserById(users,userId);
 
+        if(usertest!=undefined){
+            status = false;
+            msg="Already exist : "+userId;
+        }else{
+            users.push({
+                userId:userId,
+                aquariums: []
+            });
 
-    let usertest = iotiaquarium.getUserById(users,userId);
+            user = iotiaquarium.getUserById(users,userId);
 
-    if(usertest!=undefined){
-        status = false;
-        msg="Already exist : "+userId;
-    }else{
-        users.push({
-            userId:userId,
-            aquariums: []
-        });
-
-        user = iotiaquarium.getUserById(users,userId);
-
-        if(user!=undefined){
-            status = true;
-            msg="User created "+userId;
+            if(user!=undefined){
+                status = true;
+                msg="User created "+userId;
+            }
         }
+    }else{
+        msg="User not created "+userId;
+        status = false;
     }
+
 
     res.json({
         data: user,
@@ -169,10 +174,10 @@ app.post(`${versionAPI}/users`, (req, res) =>{
 
 
 //recuperation des aquarium
-app.get(`${versionAPI}/users/:id/aquariums`, (req, res) =>{
-    var id = req.params.id;
-    let aquariums = [];
-    let user = iotiaquarium.getUserById(users,id);
+app.get(`${versionAPI}/users/:userId/aquariums`, (req, res) =>{
+    var userId = req.params.userId;
+    let aquariums = null;
+    let user = iotiaquarium.getUserById(users,userId);
 
     let status = false;
 
