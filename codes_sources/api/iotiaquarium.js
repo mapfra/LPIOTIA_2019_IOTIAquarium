@@ -36,8 +36,10 @@ function getDataByAquariumId(client,aquariumId,userId, composant, response) {
         .where('aquarium', `${aquariumId}`)
         .where('user', `${userId}`)
         .then((values)=>{
+            console.log(values);
             console.log(values.results[0].series[0].values);
             let value =  values.results[0].series[0].values;
+
 
             response.json({
                 data:  value,

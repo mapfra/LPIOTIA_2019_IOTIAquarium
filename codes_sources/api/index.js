@@ -194,7 +194,7 @@ app.get(`${versionAPI}/users/:userId/aquariums`, (req, res) =>{
 
 
 //  On ajoute un aquarium à un utilisateur
-app.post(`${versionAPI}/users/:id/aquariums`, (req, res) =>{
+app.post(`${versionAPI}/users/:userId/aquariums`, (req, res) =>{
 
     let userId = req.params.userId;
     let aquariumId = req.body.aquariumId;
