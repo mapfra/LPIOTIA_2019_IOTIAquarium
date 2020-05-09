@@ -141,22 +141,22 @@ app.post(`${versionAPI}/users`, (req, res) =>{
 
 
 
-    let usertest = iotiaquarium.getUserById(users,id);
+    let usertest = iotiaquarium.getUserById(users,userId);
 
     if(usertest!=undefined){
         status = false;
-        msg="Already exist : "+id;
+        msg="Already exist : "+userId;
     }else{
         users.push({
             userId:userId,
             aquariums: []
         });
 
-        user = iotiaquarium.getUserById(users,id);
+        user = iotiaquarium.getUserById(users,userId);
 
         if(user!=undefined){
             status = true;
-            msg="User created "+id;
+            msg="User created "+userId;
         }
     }
 
