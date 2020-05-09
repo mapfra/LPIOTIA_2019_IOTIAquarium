@@ -23,38 +23,24 @@ const users = [];
 users.push({
     userid:1,
     aquariums:[
-        {id:1, sensors:[
+        {
+            id:1,
+            name:"1",
+            sensors:[
                 {id:'ph_sensor',shard_name:'ph_sensor'}
-            ], triggers:[], deleted: false},
+            ],
+            triggers:[],
+            time_feed:null,
+            time_start_light:null,
+            time_end_light:null,
+            deleted: false,
+            disconnect:false
+        },
         {id:2, sensors:[], triggers:[], deleted: false}
     ]
 });
 
 
-
-//recuperation des aquarium
-app.get(`${versionAPI}/users/:id/aquariums`, (req, res) =>{
-    var id = req.params.id;
-    let aquariums = [];
-    let user = iotiaquarium.getUserById(users,id);
-    if(user!=undefined){
-        aquariums = user.aquariums;
-    }
-    // get barer
-    res.json({
-        data:  aquariums || null,
-        status:true
-    })
-});
-
-//recuperation de l'aquarium via l'id
-app.get(`${versionAPI}/aquarium/:id`, (req, res) =>{
-    var id = req.params.id;
-    res.json({
-        data: iotiaquarium.getAquariumById(users,id) || null
-
-    })
-});
 
 
 //  Insersion d'un sensor dans influxdb
@@ -143,27 +129,6 @@ app.get(`${versionAPI}/users/:userid/aquariums/:aquariumid/trigger/:trigger`, (r
 
 });
 
-app.get(`${versionAPI}/aquarium/:id/datas`, (req, res) =>{
-    let aquariumid = req.params.aquariumid;
-
-    res.json({
-        data: iotiaquarium.getDataByAquariumId(id).aquariums || null
-    })
-});
-
-app.post(`${versionAPI}/aquarium/:id/light`, (req, res) =>{
-    var id = req.params.id;
-    res.json({
-        data: iotiaquarium.getUserByIdLight(id).aquariums || null
-    })
-});
-
-app.post(`${versionAPI}/aquarium/:id/food`, (req, res) =>{
-    var id = req.params.id;
-    res.json({
-        data: iotiaquarium.getUserByIdfood(id).aquariums || null
-    })
-});
 
 
 //  On cree un utilisateur
@@ -181,16 +146,41 @@ app.post(`${versionAPI}/users`, (req, res) =>{
     })
 });
 
+
+//recuperation des aquarium
+app.get(`${versionAPI}/users/:id/aquariums`, (req, res) =>{
+    var id = req.params.id;
+    let aquariums = [];
+    let user = iotiaquarium.getUserById(users,id);
+    if(user!=undefined){
+        aquariums = user.aquariums;
+    }
+    // get barer
+    res.json({
+        data:  aquariums || null,
+        status:true
+    })
+});
+
+
 //  On ajoute un aquarium à un utilisateur
 app.post(`${versionAPI}/users/:id/aquariums`, (req, res) =>{
 
     let userId = req.body.userId;
     let aquariumId = req.body.aquariumId;
+    let name_aquarium = req.body.name_aquarium;
+    let disconnect_aquarium = req.body.disconnect_aquarium;
 
     let aquarium = {
         id: aquariumId,
+        name:name_aquarium,
         sensors:[],
-        triggers:[]
+        triggers:[],
+        time_feed:null,
+        time_start_light:null,
+        time_end_light:null,
+        deleted: false,
+        disconnect:disconnect_aquarium
     };
     let user = iotiaquarium.getUserById(userId);
 
@@ -207,16 +197,19 @@ app.post(`${versionAPI}/users/:id/aquariums`, (req, res) =>{
     });
 });
 
-//  On supprime un aquarium
-//delete de l'aquarium via l'id
-app.delete(`${versionAPI}/aquarium/:id`, (req, res) =>{
-    let aquariumId = req.params.id;
+//  On disconnect un aquarium
+app.post(`${versionAPI}/users/:userId/aquariums/:aquariumId/disconnect`, (req, res) =>{
+
+    let userId = req.params.userId;
+    let aquariumId = req.params.aquariumId;
+    let value = req.body.value;
+
     let aquarium = iotiaquarium.getAquariumById(users,aquariumId);
 
     let status = false;
 
-    if (aquarium!==undefined){
-        aquarium.deleted = true;
+    if (aquarium!=undefined){
+        aquarium.disconnect = value;
         status=true;
     }
 
@@ -225,4 +218,93 @@ app.delete(`${versionAPI}/aquarium/:id`, (req, res) =>{
         status:status
     });
 });
+
+//  On disconnect un aquarium
+app.post(`${versionAPI}/users/:userId/aquariums/:aquariumId/disconnect`, (req, res) =>{
+
+    let userId = req.params.userId;
+    let aquariumId = req.params.aquariumId;
+    let value = req.body.value;
+
+    let aquarium = iotiaquarium.getAquariumById(users,aquariumId);
+
+    let status = false;
+
+    if (aquarium!=undefined){
+        aquarium.disconnect = value;
+        status=true;
+    }
+
+    res.json({
+        data: aquarium,
+        status:status
+    });
+});
+
+//  On set le time_feed aquarium
+app.post(`${versionAPI}/users/:userId/aquariums/:aquariumId/data/food_hours`, (req, res) =>{
+
+    let userId = req.params.userId;
+    let aquariumId = req.params.aquariumId;
+    let value = req.body.value;
+
+    let aquarium = iotiaquarium.getAquariumById(users,aquariumId);
+
+    let status = false;
+
+    if (aquarium!=undefined){
+        aquarium.time_feed = value;
+        status=true;
+    }
+
+    res.json({
+        data: aquarium,
+        status:status
+    });
+});
+
+//  On set le start_light_hours aquarium
+app.post(`${versionAPI}/users/:userId/aquariums/:aquariumId/data/start_light_hours`, (req, res) =>{
+
+    let userId = req.params.userId;
+    let aquariumId = req.params.aquariumId;
+    let value = req.body.value;
+
+    let aquarium = iotiaquarium.getAquariumById(users,aquariumId);
+
+    let status = false;
+
+    if (aquarium!=undefined){
+        aquarium.time_start_light = value;
+        status=true;
+    }
+
+    res.json({
+        data: aquarium,
+        status:status
+    });
+});
+
+//  On set le end_light_hours aquarium
+app.post(`${versionAPI}/users/:userId/aquariums/:aquariumId/data/end_light_hours`, (req, res) =>{
+
+    let userId = req.params.userId;
+    let aquariumId = req.params.aquariumId;
+    let value = req.body.value;
+
+    let aquarium = iotiaquarium.getAquariumById(users,aquariumId);
+
+    let status = false;
+
+    if (aquarium!=undefined){
+        aquarium.time_end_light = value;
+        status=true;
+    }
+
+    res.json({
+        data: aquarium,
+        status:status
+    });
+});
+
 app.listen(3000, () =>console.log('listen on port 3000'));
