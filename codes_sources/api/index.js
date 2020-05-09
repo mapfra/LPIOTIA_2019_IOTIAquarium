@@ -220,18 +220,27 @@ app.post(`${versionAPI}/users/:userId/aquariums/:aquariumId/disconnect`, (req, r
 });
 
 //  On disconnect un aquarium
-app.post(`${versionAPI}/users/:userId/aquariums/:aquariumId/disconnect`, (req, res) =>{
+app.post(`${versionAPI}/users/:userId/aquariums/:aquariumId/add/:composant`, (req, res) =>{
 
     let userId = req.params.userId;
     let aquariumId = req.params.aquariumId;
-    let value = req.body.value;
+    let id = req.body.id;
+    let chard_name = req.body.chard_name;
+    let composant = req.params.composant;
 
     let aquarium = iotiaquarium.getAquariumById(users,aquariumId);
 
     let status = false;
 
-    if (aquarium!=undefined){
-        aquarium.disconnect = value;
+    if (aquarium!=undefined && id!="" && chard_name!="" && (composant=="sensor" || composant=="trigger")){
+
+        let cmp = {id:id,shard_name:chard_name};
+
+        if (composant=="sensor"){
+            aquarium.sensors.push(cmp);
+        }else{
+            aquarium.triggers.push(cmp);
+        }
         status=true;
     }
 
