@@ -135,14 +135,35 @@ app.get(`${versionAPI}/users/:userid/aquariums/:aquariumid/trigger/:trigger`, (r
 app.post(`${versionAPI}/users`, (req, res) =>{
 
     let userId = req.body.userId;
+    let msg = null;
+    let user = null;
+    let status = false;
 
-    users.push({
-        userId:userId,
-        aquariums: []
-    });
+
+
+    let usertest = iotiaquarium.getUserById(users,id);
+
+    if(usertest!=undefined){
+        status = false;
+        msg="Already exist : "+id;
+    }else{
+        users.push({
+            userId:userId,
+            aquariums: []
+        });
+
+        user = iotiaquarium.getUserById(users,id);
+
+        if(user!=undefined){
+            status = true;
+            msg="User created "+id;
+        }
+    }
 
     res.json({
-        data: iotiaquarium.getUserById(users,userId) || null
+        data: user,
+        msg:msg,
+        status:status
     })
 });
 
@@ -152,13 +173,17 @@ app.get(`${versionAPI}/users/:id/aquariums`, (req, res) =>{
     var id = req.params.id;
     let aquariums = [];
     let user = iotiaquarium.getUserById(users,id);
+
+    let status = false;
+
     if(user!=undefined){
         aquariums = user.aquariums;
+        status = true;
     }
     // get barer
     res.json({
-        data:  aquariums || null,
-        status:true
+        data:  aquariums,
+        status:status
     })
 });
 

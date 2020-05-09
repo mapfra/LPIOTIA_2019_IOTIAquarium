@@ -15,7 +15,7 @@ module.exports.getTriggerByName = getTriggerByName;
 
 
 function getUserById(users, userId) {
-    return users.find(user => user.userid == userId);
+    return users.find(user => user.userId == userId);
 }
 
 function getAquariumById(users, aquariumId) {
