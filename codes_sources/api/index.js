@@ -20,7 +20,7 @@ const versionAPI = '/api/v1';
 //TODO: sauvegarder dans un fichier Json
 const users = [];
 
-users.push({
+/*users.push({
     userid:1,
     aquariums:[
         {
@@ -38,7 +38,7 @@ users.push({
         },
         {id:2, sensors:[], triggers:[], deleted: false}
     ]
-});
+});*/
 
 
 
@@ -142,7 +142,7 @@ app.post(`${versionAPI}/users`, (req, res) =>{
     });
 
     res.json({
-        data: iotiaquarium.getUserById(id) || null
+        data: iotiaquarium.getUserById(users,userId) || null
     })
 });
 
@@ -166,7 +166,7 @@ app.get(`${versionAPI}/users/:id/aquariums`, (req, res) =>{
 //  On ajoute un aquarium à un utilisateur
 app.post(`${versionAPI}/users/:id/aquariums`, (req, res) =>{
 
-    let userId = req.body.userId;
+    let userId = req.params.userId;
     let aquariumId = req.body.aquariumId;
     let name_aquarium = req.body.name_aquarium;
     let disconnect_aquarium = req.body.disconnect_aquarium;
@@ -182,7 +182,7 @@ app.post(`${versionAPI}/users/:id/aquariums`, (req, res) =>{
         deleted: false,
         disconnect:disconnect_aquarium
     };
-    let user = iotiaquarium.getUserById(userId);
+    let user = iotiaquarium.getUserById(users,userId);
 
     let status = false;
 
@@ -219,7 +219,7 @@ app.post(`${versionAPI}/users/:userId/aquariums/:aquariumId/disconnect`, (req, r
     });
 });
 
-//  On disconnect un aquarium
+//  On ajout des composants
 app.post(`${versionAPI}/users/:userId/aquariums/:aquariumId/add/:composant`, (req, res) =>{
 
     let userId = req.params.userId;
@@ -232,7 +232,7 @@ app.post(`${versionAPI}/users/:userId/aquariums/:aquariumId/add/:composant`, (re
 
     let status = false;
 
-    if (aquarium!=undefined && id!="" && chard_name!="" && (composant=="sensor" || composant=="trigger")){
+    if (aquarium!=undefined && id!="" && chard_name!="" && (composant.trim()=="sensor" || composant.trim()=="trigger")){
 
         let cmp = {id:id,shard_name:chard_name};
 
