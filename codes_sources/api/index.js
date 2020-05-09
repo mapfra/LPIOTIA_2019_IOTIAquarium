@@ -3,12 +3,17 @@ const Influx = require('influxdb-nodejs');
 const bodyParser = require('body-parser');
 const client = new Influx('http://127.0.0.1:8086/metrics');
 const iotiaquarium = require("./iotiaquarium");
-
+const cors = require("cors");
 
 const app= express();
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
+app.use(cors({
+    origin: '*'
+}));
+
 // recuperation des aquarium
 
 //récupération des données
