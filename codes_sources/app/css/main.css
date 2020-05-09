@@ -280,11 +280,15 @@ header>div{
     }
     .btn {
         font-size: 15px;
+        padding-top: 15px;
     }
 
     h2 {
         margin-top:30%;
 
+    }
+    .aquarium-details-item{
+        padding: 5px;
     }
 
 

@@ -23,7 +23,7 @@ var app = {
     api_version:"v1",
 
     client:{
-        id:"1",
+        id:"5",
         username:"",
         aquariums:[]
     },
@@ -116,7 +116,6 @@ var app = {
             }else{
                 $("#rien_ici").remove();
                 //  Dynamic loading
-
                 //  On charge les aquariums
                 client.aquariums.forEach((elem)=>{
                     this.add_aquarium(elem);
@@ -176,25 +175,26 @@ var app = {
             `<button id='btn_delete_${str}' class=\"btnsup\">Supprimer</button>`+
             "</div>");
 
+        //appel de la fonction et affichage
         this.getPhValue(i,(value)=>{
             console.log("value:"+value[value.length-1][3]);
             $("#aquarium_"+i+"_ph").html(value[value.length-1][3]);
-
         });
-
-        /*this.getWaterLevel(i).then((value)=>{
-            $("#'aquarium_"+i+"_water_level'").html(value);
+        //appel de la fonction et affichage
+        this.getWaterLevel(i,(value)=>{
+            $("#aquarium_"+i+"_water_level").html(value[value.length-1][3]);
         });
-
-        this.getTemperature(i).then((value)=>{
-            $("#'aquarium_"+i+"_temperature'").html(value);
+        //appel de la focntion et affichage
+        this.getTemperature(i,(value)=>{
+            $("#aquarium_"+i+"_temperature").html(value[value.length-1][3]);
         });
-
-        this.getLightLevel(i).then((value)=>{
-            $("#'aquarium_"+i+"_light_level'").html(value);
-        });*/
+        //appel de la focntion et affichage
+        this.getLightLevel(i,(value)=>{
+            $("#aquarium_"+i+"_light_level").html(value[value.length-1][3]);
+        });
     },
 
+    //fonction qui récupére la valeur du Ph
     getPhValue(aquariumid,mycallback){
 
         console.log("entrer:getPhValue");
@@ -205,6 +205,8 @@ var app = {
         });
 
     },
+
+    //fonction qui récupére la valeur du niveau de l'eau
     getWaterLevel(aquariumid,mycallback){
 
         $.get(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/sensor/water_sensor", (response)=>{
@@ -218,6 +220,7 @@ var app = {
         });
 
     },
+    //fonction qui récupére l'heure de l'allumage de la lumiére
     getHoursStartLight(aquariumid,mycallback){
 
         //TODO
@@ -231,7 +234,7 @@ var app = {
         });
 
     },
-
+    //fonction qui envoi l'heure d'allumage de la lumiere
     setHoursStartLight(aquariumid,value,mycallback){
         //TODO
 
@@ -240,6 +243,7 @@ var app = {
         });
 
     },
+    //fonction qui récupére l'heure d'exctinction de la lumiere
     getHoursEndLight(aquariumid,mycallback){
         //TODO
 
@@ -252,6 +256,8 @@ var app = {
         });
 
     },
+
+    //fonction que envoi l'heure d'exctinction de la lumiere
     setHoursEndLight(aquariumid,value,mycallback){
 
         //TODO
@@ -260,6 +266,8 @@ var app = {
         });
 
     },
+
+    //fonction qui récupére l'heure de distribution de nourriture
     getHoursFood(aquariumid,mycallback) {
         //TODO
 
@@ -272,6 +280,8 @@ var app = {
         });
 
     },
+
+    //fonction qui envoi l'heure de distribution de nourriture
     setHoursFood(aquariumid,value,mycallback){
 
         //TODO
@@ -282,6 +292,7 @@ var app = {
 
     },
 
+    //fonction qui récupére la température de l'eau
     getTemperature(aquariumid,mycallback) {
         //TODO : Il n'est pas dans le shema de db
 
@@ -295,6 +306,7 @@ var app = {
 
     },
 
+    //fonction qui récupére l'intensité de la lumiere
     getLightLevel(aquariumid,mycallback) {
 
         $.get(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/sensor/light_sensor", (response)=>{
@@ -339,6 +351,7 @@ var app = {
 
     },
 
+    //fonction de déconnexion de l'aquiarium
     disconnectAquarium(aquariumid,mycallback) {
 
         $.post(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/disconnect", {date:new Date()},(response)=>{
