@@ -18,30 +18,31 @@
 </header>
 
     <form class="marge">
-    <label class="fontsiz" for="appt">Turn on the light at:</label>
+    <label class="fontsiz" for="input_time_start">Turn on the light at:</label>
 <div class="dec">
-    <input class="time" type="time" id="appt" name="appt"
-           min="00:00" max="23:00" required>
+    <input class="time" type="time" id="input_time_start" name="appt"
+           min="00:00" max="23:59" required>
 
-    <small>Between 00:00AM and 23:00PM</small>
+    <small>Between 00:00AM and 23:59PM</small>
 </div>
     </form>
 <form class="marge">
-    <label class="fontsiz" for="appt">Turn off the light at:</label>
+    <label class="fontsiz" for="input_time_end">Turn off the light at:</label>
     <div class="dec">
-        <input class="time" type="time" id="appt" name="appt"
-               min="00:00" max="23:00" required>
+        <input class="time" type="time" id="input_time_end" name="appt"
+               min="00:00" max="23:59" required>
 
-        <small>Between 00:00AM and 23:00PM</small>
+        <small>Between 00:00AM and 23:59PM</small>
     </div>
 </form>
 
     <form>
         <div class="btn-user">
-            <button class="btn bg-blue" ><a href="aquarium.html">Retour</a></button>
+            <button id="btn_set_time_light" class="btn bg-blue" >Valide</button>
             <button class="btn bg-blue" ><a href="main.html">Acceuil</a></button>
         </div>
     </form>
 
+<script src="../js/aquarium_load_action_button.js"></script>
 </body>
 </html>

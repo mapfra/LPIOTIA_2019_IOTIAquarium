@@ -28,6 +28,7 @@ var app = {
         aquariums:[]
     },
     current_aquarium:null,
+    light_is_on:false,
 
 
     // Application Constructor
@@ -40,7 +41,45 @@ var app = {
     },
     load_action_button(){
         this.current_aquarium = this.GET("aquarium");
+        let me = this;
         $("#btn_show_data").attr("href","donnees.html?aquarium="+this.current_aquarium);
+
+        $("#btn_onoff_light").on("click",(event)=>{
+
+            if (me.light_is_on){
+                me.turnOffLight(me.current_aquarium,val => console.log(val));
+                me.light_is_on = false;
+            }else{
+                me.turnOnLight(me.current_aquarium,val => console.log(val));
+                me.light_is_on = true;
+            }
+        });
+
+        $("#btn_feed").on("click",(event)=>{
+            me.startFeed(me.current_aquarium,val => console.log(val));
+        });
+
+        $("#btn_active_pump").on("click",(event)=>{
+            me.startPump(me.current_aquarium,val => console.log(val));
+        });
+
+        $("#btn_disconnect").on("click",(event)=>{
+            me.disconnectAquarium(me.current_aquarium,val => console.log(val));
+        });
+
+        $("#btn_set_time_light").on("click",(event)=>{
+            let time_start = $("#input_time_start").val();
+            let time_end = $("#input_time_end").val();
+
+            me.setHoursStartLight(me.current_aquarium,time_start,val => console.log(val));
+            me.setHoursEndLight(me.current_aquarium,time_end,val => console.log(val));
+        });
+
+        $("#btn_set_time_food").on("click",(event)=>{
+            let time_start = $("#input_time_start").val();
+
+            me.setHoursFood(me.current_aquarium,time_start,val => console.log(val));
+        });
 
         console.log("je suis la");
         console.log(this.GET("aquarium"));
@@ -287,6 +326,22 @@ var app = {
     startFeed(aquariumid,mycallback) {
 
         $.post(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/trigger/feed_trigger", {date:new Date()},(response)=>{
+            mycallback(response.status);
+        });
+
+    },
+
+    startPump(aquariumid,mycallback) {
+
+        $.post(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/trigger/pump_trigger", {date:new Date()},(response)=>{
+            mycallback(response.status);
+        });
+
+    },
+
+    disconnectAquarium(aquariumid,mycallback) {
+
+        $.post(this.api+"/"+this.api_version+"/users/"+this.client.id+"/aquariums/"+aquariumid+"/disconnect", {date:new Date()},(response)=>{
             mycallback(response.status);
         });
 
