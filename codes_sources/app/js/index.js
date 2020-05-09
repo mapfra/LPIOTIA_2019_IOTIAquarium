@@ -367,7 +367,7 @@ var app = {
 
         let aquariumid = this.GET("aquarium");
 
-        /*this.getWaterLevel(aquariumid,(value)=>{
+        this.getWaterLevel(aquariumid,(value)=>{
            waterlevel_html.val(value[value.length-1][3]);
         });
 
@@ -376,7 +376,7 @@ var app = {
             let val = ""+value[value.length-1][3];
             let tab_val= val.split(".");
             temp_value_html.html(`${tab_val[0]}<span>.${tab_val[1]}</span><strong>&deg;</strong>`);
-        });*/
+        });
 
         this.getPhValue(aquariumid,(value)=>{
 
