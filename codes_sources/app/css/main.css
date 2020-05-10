@@ -1,0 +1,349 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+    margin: 0;
+    padding: 0;
+    font-family: "arial", sans-serif;
+}
+html{
+    width: 100%;
+    height: 100%;
+}
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background: white;
+    width: 100%;
+    height: 80%;
+
+}
+
+/* Portrait layout (default) */
+.app {
+
+    text-align:center;
+    width: 100%;
+    height: 100%;
+
+}
+
+.logo{
+    width: 176px;
+    margin: auto;
+}
+
+.index-home{
+    /*margin-top: 30%;*/
+    /**/
+}
+
+.btn-user{
+    position: fixed;
+    top: 70%;
+    left: calc(50% - (386px/2));
+    margin-top: 50px;
+}
+
+.btn-action{
+    /*position: fixed;*/
+   /*top: 22%;*/
+   /* left: calc(50% - (386px/2));*/
+    margin-left: 3%;
+}
+
+.input-user{
+    margin-bottom: -90px;
+    margin-top: 60px;
+}
+
+.btn{
+    width: 386px;
+    height: 90px;
+    display: block;
+    margin: 10px auto 10px auto;
+    font-size: 40px;
+    border-color: white;
+    border-radius: 30px;
+}
+.input{
+    display: block;
+    width: 547px;
+    height: 72px;
+    font-size: 30px;
+    border-radius: 30px;
+    margin: 10px auto;
+}
+
+.bg-blue{
+    background-color: #3fa9f5;
+    color: white;
+    border-radius: 30px;
+}
+
+.bg-black{
+    background-color: black;
+    color: white;
+}
+
+.txt-blue{
+    color: #3fa9f5;
+    border-radius: 30px;
+}
+
+button.bg-blue:hover{
+    background-color: black;
+    color: white;
+}
+.btnsup{
+    //float: right;
+    border-radius: 10px;
+    background-color: #bfe3fc;
+    color: white;
+    padding:0.6%;
+}
+
+
+h1 {
+    font-size:66px;
+    font-weight:normal;
+    margin:auto;
+    overflow:visible;
+    padding:0px;
+    padding-top: 5px;
+    text-align:center;
+
+}
+h2 {
+    margin-top:8%;
+
+}
+
+
+header{
+    height: 120px;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background: linear-gradient(#bfe3fc,80%, #d4eafc);
+    text-align: center;
+    z-index:1000;
+}
+
+header>div{
+    height: 100%;
+    width: 80%;
+    display: inline-flex;
+}
+
+.aquarium-form{
+    margin-top: 150px;
+    min-height: 90%;
+    width: 100%;
+    background-color: white;
+    -ms-overflow-style: none;
+
+    padding-bottom: 250px;
+
+    overflow-y: scroll;
+}
+
+.aquarium-form::-webkit-scrollbar {
+     display: none;
+ }
+
+.aquarium{
+    width: 60%;
+    height: 100px;
+    text-align: center;
+    margin: 10px auto auto;
+    padding: 10px;
+
+    border-radius: 20px;
+}
+
+.aquarium-name{
+    margin-bottom: 10px;
+}
+
+.aquarium-details{
+    margin: auto;
+    text-align: center;
+}
+
+.aquarium-details-item{
+    padding: 10px;
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app {
+        background-position:left center;
+        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
+        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
+        /* offset horizontal: half of image width and text area width */
+    }
+}
+
+
+
+@media screen and (max-width:600px) {
+
+    body {
+        padding-top: 10%;
+        padding-bottom: 10%;
+
+    }
+    .btn-user{
+        left: calc(50% - (143px/2));
+    }
+    .input-user{
+        margin-bottom: -40px;
+        margin-top: 30px;
+    }
+    .btn{
+        width: 143px;
+        height: 45px;
+        display: block;
+        margin: 10px auto 10px auto;
+        font-size: 20px;
+        border-color: white;
+    }
+    .input{
+        display: block;
+        width: 143px;
+        height: 35px;
+        border-radius: 30px;
+        margin: 10px auto;
+
+        text-align: center;
+        font-size: 15px;
+    }
+
+    h1 {
+        font-size:27px;
+        font-weight:normal;
+        margin:0px;
+        overflow:visible;
+        padding: 15px 0px 0px;
+        text-align:center;
+    }
+
+    header{
+        height: 70px;
+        width: 100%;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        background: linear-gradient(#bfe3fc,80%, #d4eafc);
+        text-align: center;
+    }
+
+    .logo{
+        width: 100px;
+        margin: auto;
+    }
+
+    .aquarium-form{
+        margin-top: 80px;
+        min-height: 90%;
+        width: 100%;
+
+        overflow-y: scroll;
+    }
+
+    .aquarium{
+        width: 90%;
+        height: 100px;
+        padding: 5px;
+    }
+    a{
+        font-size: 15px;
+    }
+    .btn {
+        font-size: 15px;
+        padding-top: 15px;
+    }
+
+    h2 {
+        margin-top:30%;
+
+    }
+    .aquarium-details-item{
+        padding: 5px;
+    }
+
+
+
+}
+
+
+@media screen and (min-width:1300px) {
+
+    header>div{
+        height: 100%;
+        width: 35%;
+        display: inline-flex;
+    }
+
+
+}
+
+
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+
+@-webkit-keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+
+.blink {
+    animation:fade 3000ms infinite;
+    -webkit-animation:fade 3000ms infinite;
+}
+
+a{
+    outline: none;
+    text-decoration: none;
+    color:white;
+}
+
+a:link {
+}
+
+a:visited {
+    text-decoration: none;
+
+}
+
+
+a:hover {
+
+}
+
+#aquarium_parent{
+    margin-top: 3%;
+}
