@@ -1,6 +1,10 @@
 # LPIOTIA_2019_IOTIAquarium
 
-Equipe IOTIAQUARIUM
+## Déploiement des sous parties
+- Pour le déploiement dans chaque sous parties vous trouverez un README dédié.
+
+
+## Equipe IOTIAQUARIUM
 
 ---
 
