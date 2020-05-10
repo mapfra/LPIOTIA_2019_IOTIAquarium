@@ -1,0 +1,22 @@
+{
+  "name": "api_acquarium",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "influx": "^5.5.1",
+    "influxdb-nodejs": "^3.1.0"
+  },
+  "devDependencies": {
+    "http": "0.0.1-security"
+  }
+}

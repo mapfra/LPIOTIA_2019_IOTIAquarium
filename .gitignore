@@ -1,0 +1,101 @@
+# Cordova Global
+code_sources/app/plugins/
+code_sources/app/
+# iOS Platform
+code_sources/app/platforms/ios/build/
+code_sources/app/platforms/ios/www/
+code_sources/app/platforms/ios/cordova/console.log
+code_sources/app/*.xcuserdatad
+code_sources/app/
+# Android Platform
+code_sources/app/platforms/android/.gradle
+code_sources/app/platforms/android/build
+code_sources/app/platforms/android/assets/www
+code_sources/app/platforms/android/local.properties
+code_sources/app/platforms/android/CordovaLib/build
+code_sources/app/platforms/android/CordovaLib/gen
+code_sources/app/platforms/android/CordovaLib/local.properties
+code_sources/app/
+# wp8
+code_sources/app/platforms/wp8/bin
+code_sources/app/platforms/wp8/obj
+code_sources/app/platforms/wp8/www
+code_sources/app/platforms/wp8/.staging
+code_sources/app/platforms/wp8/*.suo
+code_sources/app/platforms/wp8/*.csproj.user
+code_sources/app/
+# Windows Universal App (Windows Platform)
+code_sources/app/platforms/windows/build
+code_sources/app/platforms/windows/www
+code_sources/app/platforms/windows/AppPackages
+code_sources/app/
+# Browser
+code_sources/app/platforms/browser/www
+code_sources/app/
+# res
+code_sources/app/resources/signing
+code_sources/app/
+# Node JS + TS
+code_sources/app/logs
+code_sources/app/*.log
+code_sources/app/npm-debug.log*
+code_sources/app/yarn-debug.log*
+code_sources/app/yarn-error.log*
+code_sources/app/pids
+code_sources/app/*.pid
+code_sources/app/*.seed
+code_sources/app/*.pid.lock
+code_sources/app/lib-cov
+code_sources/app/coverage
+code_sources/app/.nyc_output
+code_sources/app/.grunt
+code_sources/app/bower_components
+code_sources/app/.lock-wscript
+code_sources/app/build/Release
+code_sources/app/dist/
+code_sources/app/node_modules/
+code_sources/app/jspm_packages/
+code_sources/app/typings/
+code_sources/app/.npm
+code_sources/app/.eslintcache
+code_sources/app/.node_repl_history
+code_sources/app/*.tgz
+code_sources/app/.yarn-integrity
+code_sources/app/.env
+code_sources/app/.env.test
+code_sources/app/.cache
+code_sources/app/.next
+code_sources/app/.nuxt
+code_sources/app/.vuepress/dist
+code_sources/app/.serverless/
+code_sources/app/.fusebox/
+code_sources/app/.dynamodb/
+code_sources/app/
+# Windows
+code_sources/app/ehthumbs.db
+code_sources/app/ehthumbs_vista.db
+code_sources/app/*.stackdump
+code_sources/app/[Dd]esktop.ini
+code_sources/app/$RECYCLE.BIN/
+code_sources/app/*.lnk
+code_sources/app/
+# Linux
+code_sources/app/.fuse_hidden*
+code_sources/app/.directory
+code_sources/app/.Trash-*
+code_sources/app/.nfs*
+code_sources/app/
+# Mac
+code_sources/app/.DS_Store
+code_sources/app/.AppleDouble
+code_sources/app/.LSOverride
+code_sources/app/.DocumentRevisions-V100
+code_sources/app/.fseventsd
+code_sources/app/.Spotlight-V100
+code_sources/app/.TemporaryItems
+code_sources/app/.Trashes
+code_sources/app/.VolumeIcon.icns
+code_sources/app/.com.apple.timemachine.donotpresent
+code_sources/app/.AppleDB
+code_sources/app/.AppleDesktop
+code_sources/app/.apdisk
