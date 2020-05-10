@@ -16,15 +16,15 @@
     
   ## Bibliothèques nécessaire pour le code arduino
   
-  Pour permettre le lancement du sketch arduino, il faut pour cela télécharger des bibliothèques qui se trouvent dans:
-      Croquis -> Inclure une bibliothèque -> Gérer les bibliothèques
-  Il faudra ensuite télécharger les bibliothèques suivantes :
-    Ces 2 bibliothèques permettront de récupérer la température :
-      - OneWire
-      - DallasTemperature
-    Ces bibliothèques permettent d'effectuer l'échange avec le broker :
-      - ESP8266WiFi
-      - MQTT
+    Pour permettre le lancement du sketch arduino, il faut pour cela télécharger des bibliothèques qui se trouvent dans:
+        Croquis -> Inclure une bibliothèque -> Gérer les bibliothèques
+    Il faudra ensuite télécharger les bibliothèques suivantes :
+      Ces 2 bibliothèques permettront de récupérer la température :
+        - OneWire
+        - DallasTemperature
+      Ces bibliothèques permettent d'effectuer l'échange avec le broker :
+        - ESP8266WiFi
+        - MQTT
   
   ## Sources
   
