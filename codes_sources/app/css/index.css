@@ -1,0 +1,183 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+
+    font-family: Arial;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background: white;
+
+    height: 100%;
+    width: 100%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+
+}
+
+/* Portrait layout (default) */
+.app {
+
+    text-align:center;
+
+}
+
+.logo{
+    width: 500px;
+}
+
+.index-home{
+    /*margin-top: 30%;*/
+}
+
+.btn-user{
+    margin-top: 200px;
+}
+.input-user{
+    margin-bottom: -90px;
+    margin-top: 60px;
+}
+.btn{
+    width: 386px;
+    height: 90px;
+    display: block;
+    margin: 10px auto 10px auto;
+    font-size: 40px;
+    border-color: white;
+}
+.input{
+    display: block;
+    width: 547px;
+    height: 72px;
+    text-align: center;
+    font-size: 30px;
+    border-radius: 30px;
+    margin: 10px auto;
+}
+
+.bg-blue{
+    background-color: #3fa9f5;
+    color: white;
+    border-radius: 30px;
+}
+
+.txt-blue{
+    color: #3fa9f5;
+}
+
+button.bg-blue:hover{
+    background-color: black;
+    color: white;
+}
+
+
+h1 {
+    font-size:66px;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app {
+        background-position:left center;
+        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
+        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
+                                      /* offset horizontal: half of image width and text area width */
+    }
+}
+
+
+
+@media screen and (max-width:600px) {
+
+    body {
+        padding-top: 10%;
+        padding-bottom: 10%;
+
+    }
+    .btn-user{
+        margin-top: 100px;
+    }
+    .input-user{
+        margin-bottom: -40px;
+        margin-top: 30px;
+    }
+    .btn{
+        width: 143px;
+        height: 45px;
+        display: block;
+        margin: 10px auto 10px auto;
+        font-size: 20px;
+        border-color: white;
+    }
+    .input{
+        display: block;
+        width: 143px;
+        height: 35px;
+        font-size: 15px;
+        border-radius: 30px;
+        margin: 10px auto;
+    }
+
+    h1 {
+        font-size:33px;
+        font-weight:normal;
+        margin:0px;
+        overflow:visible;
+        padding:0px;
+        text-align:center;
+    }
+
+    .logo{
+        width: 250px;
+    }
+
+}
+
+
+
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+@-webkit-keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+.blink {
+    animation:fade 3000ms infinite;
+    -webkit-animation:fade 3000ms infinite;
+}
+
+
+
