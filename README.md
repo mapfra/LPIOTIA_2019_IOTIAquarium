@@ -13,7 +13,7 @@ IOTIAQUARIUM a pour but d’aider à prendre soin de vos poissons en automatisan
 
 Six capteurs sont utilisés dans la plate-forme pour mesurer les paramètres clés de l'aquarium, tels que la température, le pH, et d'autres pour contrôler l'état de l'aquarium (niveau et fuites, luminosité). De plus, il y a 3 actionneurs différents pour automatiser des tâches telles que nourrir les poissons, l'activation des pompes pour le changement d'eau, le contrôle de l'intensité de la lumière pour simuler les cycles jour/nuit et créer un réflexe de Pavlov pour l’alimentation des poissons. Une API complète sera créée pour contrôler facilement le système via un Raspberry. Nous prévoyons également de concevoir une application web qui permettra de stocker dans une base de données les informations recueillies et de les visualiser à partir d'un navigateur et d'appareils iPhone/Android.
 
-![architecture systeme](https://github.com/mapfra/LPIOTIA_2019_IOTIAquarium/tree/master/documents?raw=true)
+![architecture systeme](https://github.com/mapfra/LPIOTIA_2019_IOTIAquarium/blob/master/documents/Architecture_System.png?raw=true)
 
 Notre but est de mettre en avant l’hétérogénéité de nos compétences, en répartissant le travail en fonction des différentes matières concernant le projet.
 
