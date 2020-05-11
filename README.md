@@ -20,4 +20,14 @@ Notre but est de mettre en avant l’hétérogénéité de nos compétences, en 
 ## Acteurs :
 Olivier Durand, Raphaël Betti, Dieunelson Dorcelus, Eric Harkat.
 
+## Sous-équipes :
+
+| Partie : Circuit et arduino | Partie : virtualisation et communication | Partie : web et mobile         |
+|-----------------------------|------------------------------------------|--------------------------------|
+| Raphael Betti \(leader\)    | Olivier Durand \(leader\)                | Dieunelson Dorcelus \(leader\) |
+| Eric Harkat                 | Eric Harkat                              | Eric Harkat                    |
+| Olivier Durand              | Dieunelson Dorcelus                      | Raphael Betti                  |
+
+
+
 *Pour le déploiement dans chaque sous parties (codes sources, docker) vous trouverez un README dédié à chaque parties. dans le dossier codes_sources/<nom_de_la_partie>*
