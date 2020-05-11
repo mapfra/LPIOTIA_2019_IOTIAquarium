@@ -139,13 +139,13 @@ void loop(void)
         //Envoi des informations dans l'ordre : PH - Niveau d'eau - Température de l'eau
         char* stringSend = "PHSensor="+pHValue + ";WaterLevelSensor=" + WaterLevelsensor + ";TemperatureSensor=" + dTempWater + ";LightSensor=" + LightSensor;
         //Envoi des informations via MQTT
-        myMqtt.publish(topic, valueStr);  
+        myMqtt.publish(topic, stringSend);  
   }
-  if(SeuilpHValue <= phValue || SeuilWaterLevelsensor <= WaterLevelsensor || SeuildTempWater <= dTempWater || SeuilLightSensor <= LightSensor)
+  if(SeuilpHValue >= phValue || SeuilWaterLevelsensor >= WaterLevelsensor || SeuildTempWater >= dTempWater || SeuilLightSensor >= LightSensor)
   {
       char* stringSend = "PHSensor="+pHValue + ";WaterLevelSensor=" + WaterLevelsensor + ";TemperatureSensor=" + dTempWater + ";LightSensor=" + LightSensor;
       //Envoi des informations via MQTT
-      myMqtt.publish(topic, valueStr);
+      myMqtt.publish(topic, stringSend);
   }
 }
 double avergearray(int* arr, int number){

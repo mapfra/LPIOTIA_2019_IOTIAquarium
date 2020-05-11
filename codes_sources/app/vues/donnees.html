@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' http://localhost:3000 data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/donnees.css">
+    <title>IOTIAQUARIUM</title>
+</head>
+<body>
+<div class="app index-home">
+
+    <header>
+        <div>
+            <img src="../img/poisson.webp" class="logo">
+            <h1>IOTIAQUARIUM</h1>
+        </div>
+    </header>
+<div class="dis">
+    <form class="for">
+                <h1 class="donnee">Temperature de l'eau</h1>
+                <div class="container">
+                    <div class="de">
+                        <div class="den">
+                            <div class="dene">
+                                <div class="denem">
+                                    <div id="tempvalue" class="deneme">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </form>
+    <form class="for">
+            <h1 class="donnee">Niveau d'eau en %</h1>
+            <input id="input_water_level" type="text" name="round" class="round" data-min="0" data-max="100" value="45"/>
+    </form>
+    <form class="for">
+            <div id="body-container">
+                <h1 class="donnee">échelle de pH</h1>
+                <div id="content">
+                    <p class="_14 ph_level">14.0 - Très alcalin</p>
+                    <p class="_13 ph_level"> 13.0</p>
+                    <p class="_12 ph_level"> 12.0</p>
+                    <p class="_11 ph_level"> 11.0</p>
+                    <p class="_10 ph_level"> 10.0</p>
+                    <p class="_9 ph_active ph_level"> 9.0</p>
+                    <p class="_8 ph_level"> 8.0</p>
+                    <p class="_7 ph_level"> 7.0 - Neutre</p>
+                    <p class="_6 ph_level"> 6.0</p>
+                    <p class="_5 ph_level"> 5.0</p>
+                    <p class="_4 ph_level"> 4.0</p>
+                    <p class="_3 ph_level"> 3.0</p>
+                    <p class="_2 ph_level"> 2.0</p>
+                    <p class="_1 ph_level"> 1.0</p>
+                    <p class="_0 ph_level"> 0.0 - Très Acide</p>
+                </div>
+            </div>
+    </form>
+</div>
+    <form>
+        <div class="btn-data">
+            <button class="btn bg-blue" ><a href="main.html">Acceuil</a></button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="../js/fusioncharts.js"></script>
+<script type="text/javascript" src="../js/fusioncharts.theme.fusion.js"></script>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/index.js"></script>
+<script type="text/javascript" src="../js/niveau_eau.js"></script>
+<script type="text/javascript" src="../js/ph.js"></script>
+
+</body>
+</html>
